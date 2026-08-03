@@ -3,34 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>いろ色SAMPLE</title>
+    <title>カラーサンプル</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- ヘッダーエリア -->
     <header>
         <!-- サイトタイトル（HIDDEN） -->
-        <h1 class="site-title">いろ色SAMPLE</h1>
+        <h1 class="site-title">カラーサンプル</h1>
 
-        <!-- ヘッダーメニュー（元の背景色を保持しつつ外枠でマークアップ） -->
-        <nav>
-            <button type="button" class="nav-btn active" data-category="赤系" style="background-color: #e60033; color: #fff;">赤系</button>
-            <button type="button" class="nav-btn" data-category="オレンジ系" style="background-color: #f39800; color: #fff;">オレンジ系</button>
-            <button type="button" class="nav-btn" data-category="茶系" style="background-color: #6e4a27; color: #fff;">茶系</button>
-            <button type="button" class="nav-btn" data-category="黄系" style="background-color: #ffd900; color: #333;">黄系</button>
-            <button type="button" class="nav-btn" data-category="緑系" style="background-color: #009944; color: #fff;">緑系</button>
-            <button type="button" class="nav-btn" data-category="青系" style="background-color: #00a0e9; color: #fff;">青系</button>
-            <button type="button" class="nav-btn" data-category="紫系" style="background-color: #920783; color: #fff;">紫系</button>
-            <button type="button" class="nav-btn" data-category="ピンク系" style="background-color: #e83929; color: #fff;">ピンク系</button>
-            <button type="button" class="nav-btn" data-category="白黒系" style="background-color: #4c5260; color: #fff;">白黒系</button>
-        </nav>
+        <!-- 画像風のヘッダーメニュー構造 -->
+        <div class="nav-container">
+            <!-- 左矢印（《） -->
+            <button type="button" class="nav-arrow-btn" id="hdr-prev-btn" aria-label="前へ">&laquo;</button>
+            
+            <!-- 各色系ボタングループ -->
+            <nav id="category-nav">
+                <button type="button" class="nav-btn active" data-category="赤系" style="background-color: #d7003a; color: #fff;">赤系</button>
+                <button type="button" class="nav-btn" data-category="橙系" style="background-color: #eb6100; color: #fff;">橙系</button>
+                <button type="button" class="nav-btn" data-category="茶系" style="background-color: #6e4a27; color: #fff;">茶系</button>
+                <button type="button" class="nav-btn" data-category="黄系" style="background-color: #fcc800; color: #333;">黄系</button>
+                <button type="button" class="nav-btn" data-category="緑系" style="background-color: #009854; color: #fff;">緑系</button>
+                <button type="button" class="nav-btn" data-category="青系" style="background-color: #007bbb; color: #fff;">青系</button>
+                <button type="button" class="nav-btn" data-category="紫系" style="background-color: #674196; color: #fff;">紫系</button>
+                <button type="button" class="nav-btn" data-category="桃系" style="background-color: #f596aa; color: #fff;">桃系</button>
+                <button type="button" class="nav-btn" data-category="白黒" style="background-color: #595857; color: #fff;">白黒</button>
+            </nav>
+
+            <!-- 右矢印（》） -->
+            <button type="button" class="nav-arrow-btn" id="hdr-next-btn" aria-label="次へ">&raquo;</button>
+        </div>
     </header>
 
+    <!-- メインエリア -->
     <main>
-        <!-- 一覧画面（◆ 赤系 ◆ などの見出しはHIDDEN化） -->
+        <!-- 一覧画面 -->
         <div id="list-view" class="grid-container"></div>
 
-        <!-- 各色サンプル画面（詳細表示） -->
+        <!-- 各色カラーサンプル画面 -->
         <div id="detail-view" style="display: none;"></div>
     </main>
 

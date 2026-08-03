@@ -5,70 +5,97 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", MeiRyo, sans-serif;
     background-color: #f8f9fa;
 }
 
-/* サイトタイトルの非表示 */
+/* サイト名タイトルのHIDDEN化 */
 .site-title {
     display: none !important;
 }
 
 /* ------------------------------------------
-   ヘッダー & メニュー設定
+   ヘッダーメニュー（画像デザインの再現）
 ------------------------------------------ */
 header {
     background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 12px 16px;
+    border-bottom: 1px solid #cccccc;
+    padding: 8px 12px;
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-header nav {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-}
-
-/* ヘッダーボタンの共通基準（角丸小さめ＆幅統一） */
-.nav-btn {
-    flex: 1;
-    min-width: 75px;
-    max-width: 110px;
-    height: 38px;
-    border-radius: 4px !important; /* 小さめの角丸で統一 */
-    border: 2px solid transparent; /* 非選択時は透明な枠 */
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.15s ease;
+.nav-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.85;
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #e6e6e6;
+}
+
+/* 左右の二重矢印ボタン（《 》） */
+.nav-arrow-btn {
+    background-color: #ffffff;
+    border: none;
+    color: #555555;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 12px;
+    height: 38px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+}
+
+.nav-arrow-btn:hover {
+    background-color: #dddddd;
+}
+
+/* カテゴリボタンのグループ */
+#category-nav {
+    display: flex;
+    flex: 1;
+    gap: 2px; /* ボタン同士の境目 */
+    background-color: #ffffff;
+}
+
+.nav-btn {
+    flex: 1;
+    height: 38px;
+    border: none;
+    border-radius: 2px !important; /* 角丸は統一小さめ */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+    transition: all 0.15s ease;
 }
 
 .nav-btn:hover {
     opacity: 1;
 }
 
-/* 【選択中（アクティブ）のマークアップ】：背景色は維持して「外枠＋影」で強調 */
+/* マークアップ（選択中アクティブ状態）：黒枠＋外側の縁取り */
 .nav-btn.active {
     opacity: 1;
-    border: 3px solid #111111 !important; /* クッキリとした黒外枠 */
-    box-shadow: 0 0 0 2px #ffffff, 0 2px 8px rgba(0,0,0,0.3); /* 白縁取り＋立体影 */
-    transform: scale(1.03); /* 少しだけ前に出す */
+    outline: 3px solid #111111;
+    outline-offset: -3px;
+    font-weight: 900;
 }
 
 /* ------------------------------------------
    一覧画面（#list-view）
 ------------------------------------------ */
-/* 見出しの非表示 */
 #list-view h2,
 #list-view .category-title {
     display: none !important;
@@ -83,7 +110,7 @@ header nav {
     margin: 0 auto;
 }
 
-/* カード（背景はそれぞれの色、角丸小さめ） */
+/* 各色カード（角丸統一小さめ） */
 .color-card {
     border-radius: 4px !important;
     height: 100px;
@@ -118,24 +145,45 @@ header nav {
 }
 
 /* ------------------------------------------
-   詳細画面（#detail-view）
+   各色カラーサンプル画面（#detail-view）
 ------------------------------------------ */
 #detail-view {
-    min-height: calc(100vh - 63px);
+    min-height: calc(100vh - 55px);
     width: 100%;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 24px;
+    padding: 20px;
     box-sizing: border-box;
     transition: background-color 0.2s ease;
 }
 
+/* 左上の詳細情報表示エリア */
+.detail-top-left-info {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.15); /* 可読性を高める薄い背景 */
+    padding: 12px 18px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+}
+
+.detail-top-left-info div {
+    margin-bottom: 2px;
+}
+
+/* 左右矢印ナビゲーション（< >） */
 .nav-arrow {
     background: rgba(255, 255, 255, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: inherit;
-    font-size: 22px;
+    font-size: 24px;
     width: 48px;
     height: 48px;
     border-radius: 4px !important;
@@ -145,23 +193,9 @@ header nav {
     justify-content: center;
     backdrop-filter: blur(4px);
     transition: background 0.2s;
+    z-index: 10;
 }
 
 .nav-arrow:hover {
     background: rgba(255, 255, 255, 0.45);
-}
-
-.detail-center-info {
-    text-align: center;
-}
-
-.detail-center-info .color-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.detail-center-info .color-code {
-    font-size: 16px;
-    font-family: monospace;
 }
