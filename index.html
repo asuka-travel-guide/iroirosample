@@ -3,225 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>いろ色SAMPLE ～色見本・カラーサンプル～</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0; padding: 0;
-            background-color: #f9f9f9;
-            color: #2f4f4f;
-            display: flex; flex-direction: column; min-height: 100vh;
-        }
-
-        /* ヘッダー（上部固定＆横スクロール対応） */
-        header {
-            position: sticky; top: 0; z-index: 100;
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 10px 15px;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
-        .site-title {
-            margin: 0; font-size: 1.2em; color: #d71d3b; cursor: pointer; text-decoration: none;
-        }
-        .nav-categories {
-            display: flex; gap: 8px; overflow-x: auto; width: 100%; max-width: 900px;
-            padding-bottom: 5px; scrollbar-width: thin;
-        }
-        .cat-btn {
-            flex: 0 0 auto; padding: 6px 12px; border-radius: 20px;
-            color: #fff; text-decoration: none; font-size: 0.85em; font-weight: bold;
-            cursor: pointer; border: none; transition: transform 0.1s;
-        }
-        .cat-btn:hover { transform: scale(1.05); }
-
-        /* メインコンテンツエリア */
-        main {
-            flex: 1; display: flex; flex-direction: column;
-            align-items: center; padding: 20px; width: 100%;
-        }
-
-        /* 1. 色一覧表示コンテナ */
-        .grid-container {
-            width: 100%; max-width: 900px; text-align: center;
-        }
-        .color-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px; margin-top: 20px;
-        }
-        .color-card {
-            display: flex; align-items: center; background: #fff;
-            border: 1px solid #eee; border-radius: 8px; overflow: hidden;
-            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .color-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .card-preview { width: 50px; height: 50px; flex-shrink: 0; }
-        .card-name { padding: 0 10px; font-size: 0.9em; font-weight: bold; text-align: left; }
-
-        /* 2. 個別色表示コンテナ（メイン全面） */
-        .detail-view {
-            width: 100%; flex: 1; min-height: 70vh;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            border-radius: 12px; padding: 30px; text-align: center;
-            transition: background-color 0.3s;
-        }
-        .detail-title { font-size: 2.5em; margin: 0 0 10px 0; }
-        .detail-subtitle { font-size: 1.2em; margin: 0 0 30px 0; opacity: 0.85; }
-        .detail-nav { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-        .btn-action {
-            padding: 10px 18px; border-style: solid; border-width: 1px;
-            border-radius: 6px; font-weight: bold; cursor: pointer;
-            background: transparent; font-size: 0.9em;
-        }
-
-        footer { text-align: center; padding: 15px; font-size: 0.8em; opacity: 0.7; }
-    </style>
+    <title>いろ色SAMPLE</title>
+    <!-- 分離したCSSファイルを読み込み -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ヘッダー（常時表示の色メニュー） -->
+    <!-- ヘッダーエリア -->
     <header>
-        <a class="site-title" onclick="showCategory('red')">いろ色SAMPLE</a>
-        <nav class="nav-categories" id="nav-categories"></nav>
+        <!-- サイト名（CSSでHIDDEN化設定済み） -->
+        <h1 class="site-title">いろ色SAMPLE</h1>
+
+        <!-- ヘッダーメニュー（横幅統一・シャープな角丸・マークアップ用） -->
+        <nav>
+            <button type="button" class="active">赤系</button>
+            <button type="button">茶系</button>
+            <button type="button">黄系</button>
+            <button type="button">緑系</button>
+            <button type="button">青系</button>
+            <button type="button">紫系</button>
+            <button type="button">ピンク系</button>
+            <button type="button">白黒系</button>
+        </nav>
     </header>
 
     <!-- メインコンテンツ -->
     <main>
-        <!-- 一覧画面（メニュー内容） -->
+        <!-- 1. 一覧画面（◆ 赤系 ◆ などの見出しはCSSでHIDDEN化設定済み） -->
         <div id="list-view" class="grid-container">
-            <h2 id="category-title" style="margin: 0;">◆ 赤系 ◆</h2>
-            <div class="color-grid" id="color-grid"></div>
+            <!-- JavaScriptでカード（背景色・文字色・コード入り）が動的生成されます -->
         </div>
 
-        <!-- 詳細画面（個別の色表示） -->
-        <div id="detail-view" class="detail-view" style="display: none;">
-            <h1 class="detail-title" id="detail-name">茜色</h1>
-            <div class="detail-subtitle" id="detail-code">あかねいろ ( #d71d3b )</div>
-            <div class="detail-nav">
-                <button class="btn-action" id="btn-prev">&uarr; 前の色</button>
-                <button class="btn-action" id="btn-next">&darr; 次の色</button>
-                <button class="btn-action" id="btn-back-list">一覧に戻る</button>
-            </div>
+        <!-- 2. 各色サンプル画面（詳細表示） -->
+        <!-- 初期状態は非表示（display: none）。選択時にJavaScriptで背景色がその色になります -->
+        <div id="detail-view" style="display: none;">
+            <!-- JavaScriptで「<」「色情報」「>」のみが生成されます -->
         </div>
     </main>
 
-    <footer>&copy; iroirosample.net</footer>
-
-<script>
-    // 色系統の定義
-    const categories = [
-        { id: 'red', name: '赤系', color: '#d71d3b' },
-        { id: 'orange', name: 'オレンジ系', color: '#e67928' },
-        { id: 'brown', name: '茶系', color: '#734229' },
-        { id: 'yellow', name: '黄系', color: '#fbd01d' },
-        { id: 'green', name: '緑系', color: '#3baf75' },
-        { id: 'blue', name: '青系', color: '#0091c5' },
-        { id: 'purple', name: '紫系', color: '#7c4b8d' },
-        { id: 'pink', name: 'ピンク系', color: '#eda49e' },
-        { id: 'mono', name: '白黒系', color: '#6b6d6c' }
-    ];
-
-    let allColors = []; // 全CSVデータ
-    let currentCategory = 'red';
-    let currentDetailId = 1;
-
-    // ヘッダーメニュー生成
-    const navContainer = document.getElementById('nav-categories');
-    categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'cat-btn';
-        btn.style.backgroundColor = cat.color;
-        btn.textContent = cat.name;
-        btn.onclick = () => showCategory(cat.id);
-        navContainer.appendChild(btn);
-    });
-
-    // CSVデータ読み込み
-    fetch('iro.csv')
-        .then(res => res.text())
-        .then(text => {
-            const lines = text.split('\n');
-            allColors = lines.map(line => {
-                const cols = line.split(',');
-                if (cols.length >= 5) {
-                    return {
-                        cat: cols[0].trim(),
-                        id: parseInt(cols[1].trim(), 10),
-                        name: cols[2].trim(),
-                        kana: cols[3].trim(),
-                        code: cols[4].trim(),
-                        lum: parseInt(cols[5] ? cols[5].trim() : '0', 10)
-                    };
-                }
-                return null;
-            }).filter(item => item !== null);
-
-            // 初期画面（赤系）を表示
-            showCategory('red');
-        });
-
-    // 指定した系統の一覧を表示する関数
-    function showCategory(catId) {
-        currentCategory = catId;
-        const catInfo = categories.find(c => c.id === catId) || categories[0];
-        
-        document.getElementById('category-title').textContent = `◆ ${catInfo.name} ◆`;
-        const grid = document.getElementById('color-grid');
-        grid.innerHTML = '';
-
-        const filtered = allColors.filter(item => item.cat === catId);
-        filtered.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'color-card';
-            card.onclick = () => showDetail(item.id);
-            card.innerHTML = `
-                <div class="card-preview" style="background-color: #${item.code};"></div>
-                <div class="card-name">${item.name}</div>
-            `;
-            grid.appendChild(card);
-        });
-
-        // 表示切り替え
-        document.getElementById('list-view').style.display = 'block';
-        document.getElementById('detail-view').style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 個別の色詳細を表示する関数
-    function showDetail(colorId) {
-        currentDetailId = colorId;
-        const item = allColors.find(c => c.id === colorId);
-        if (!item) return;
-
-        const textColor = item.lum < 400 ? '#f5f5f5' : '#2f4f4f';
-        const detailView = document.getElementById('detail-view');
-
-        detailView.style.backgroundColor = `#${item.code}`;
-        detailView.style.color = textColor;
-
-        document.getElementById('detail-name').textContent = item.name;
-        document.getElementById('detail-code').textContent = `${item.kana} ( #${item.code} )`;
-
-        // ボタンのスタイルとイベント
-        const btnAction = detailView.querySelectorAll('.btn-action');
-        btnAction.forEach(btn => btn.style.borderColor = textColor);
-        btnAction.forEach(btn => btn.style.color = textColor);
-
-        const prevId = currentDetailId > 1 ? currentDetailId - 1 : 269;
-        const nextId = currentDetailId < 269 ? currentDetailId + 1 : 1;
-
-        document.getElementById('btn-prev').onclick = () => showDetail(prevId);
-        document.getElementById('btn-next').onclick = () => showDetail(nextId);
-        document.getElementById('btn-back-list').onclick = () => showCategory(item.cat);
-
-        // 表示切り替え
-        document.getElementById('list-view').style.display = 'none';
-        document.getElementById('detail-view').style.display = 'flex';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
-
+    <!-- 分離したJavaScriptファイルを読み込み -->
+    <script src="script.js"></script>
 </body>
 </html>
