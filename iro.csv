@@ -1,0 +1,269 @@
+red,1,コーラルレッド,coral red,eda098,549
+red,2,チェリーピンク,cherry pink,eb6e9f,504
+red,3,ぼたんいろ,牡丹色,d95d97,461
+red,4,つつじいろ,躑躅色,df548f,450
+red,5,ローズレッド,rose red,e05881,441
+red,6,マゼンタ,magenta,d7157e,362
+red,7,からくれない,韓紅色,df5454,407
+red,8,ばらいろ,薔薇色,de5065,403
+red,9,ローズ,rose,dc435f,382
+red,10,シグナルレッド,signal red,db3c4b,354
+red,11,チャイニーズレッド,Chinese red,e4724c,418
+red,12,バーミリオン,vermilion,e15f48,392
+red,13,レッド,red,df5555,393
+red,14,トマトレッド,tomato red,df5550,388
+red,15,スカーレット,scarlet,df5445,376
+red,16,えんたんいろ,鉛丹色,d86554,401
+red,17,ポピーレッド,poppy red,dd4952,376
+red,18,きあか,黄赤,e1642b,368
+red,19,しゅいろ,朱色,dd4827,332
+red,20,きんあか,金赤,db3f2b,325
+red,21,べにひ,紅緋,db3d36,334
+red,22,ストロベリー,strawberry,c63659,341
+red,23,べにあか,紅赤,c73a47,328
+red,24,あか,赤,d71d3b,303
+red,25,べにいろ,紅色,c41a41,287
+red,26,カーマイン,carmine,c41a41,287
+red,27,ルビーレッド,ruby red,bc3354,323
+red,28,コチニールレッド,cochineal red,b12f4f,303
+red,29,テラコッタ,terracotta,a55e4f,338
+red,30,べにかばいろ,紅樺色,a24b44,305
+red,31,えんじ,臙脂,9f3b42,284
+red,32,れんがいろ,煉瓦色,9c4836,282
+red,33,あかねいろ,茜色,9d2932,248
+red,34,あずきいろ,小豆色,864944,275
+red,35,すおう,蘇芳,833638,241
+red,36,ひわだいろ,桧皮色,7b4334,242
+red,37,ワインレッド,wine red,782b3a,221
+red,38,えびちゃ,海老茶,6a3931,212
+red,39,ボルドー,bordeaux,461217,111
+red,40,バーガンディー,burgundy,3f171d,115
+orange,41,はだいろ,肌色,f8d8b7,647
+orange,42,ピーチ,peach,f6ceaa,622
+orange,43,アプリコット,apricot,f7b97e,558
+orange,44,あんずいろ,杏色,f0ac78,532
+orange,45,こうじいろ,柑子色,eea057,485
+orange,46,マンダリンオレンジ,mandarin orange,e2983b,437
+orange,47,みかんいろ,蜜柑色,e8822a,404
+orange,48,だいだいいろ,橙色,e67928,391
+orange,49,オレンジ,orange,e67928,391
+orange,50,おうに,黄丹,e47353,426
+orange,51,かきいろ,柿色,e2694a,405
+orange,52,キャロットオレンジ,carrot orange,ce653f,370
+orange,53,あかだいだい,赤橙,df542b,350
+orange,54,かばいろ,樺色,9c4836,282
+brown,55,エクルベージュ,ecru beige,f2e0c1,659
+brown,56,ベージュ,beige,e3cea4,597
+brown,57,こむぎいろ,小麦色,d68f5e,451
+brown,58,バフ,buff,b99769,441
+brown,59,コルク,cork,ac8560,401
+brown,60,にっけいいろ,肉桂色,cc6f58,403
+brown,61,きちゃ,黄茶,d07144,389
+brown,62,きんちゃ,金茶,d38027,378
+brown,63,ローシェンナ,raw sienna,c6723f,375
+brown,64,らくだいろ,駱駝色,a7684b,346
+brown,65,タン,tan,a86e42,344
+brown,66,つちいろ,土色,a36840,331
+brown,67,あかちゃ,赤茶,a24d3c,299
+brown,68,バーントシェンナ,burnt sienna,984a36,280
+brown,69,たいしゃ,代赭,a14b2c,280
+brown,70,くちばいろ,朽葉色,796040,281
+brown,71,はいちゃ,灰茶,80553e,275
+brown,72,ブラウン,brown,77533f,265
+brown,73,ココアブラウン,cocoa brown,764e40,260
+brown,74,ローアンバー,raw umber,785c2b,255
+brown,75,バーントアンバー,burnt umber,654f38,236
+brown,76,べにえびちゃ,紅海老茶,81322f,226
+brown,77,とびいろ,鳶色,723934,223
+brown,78,ちゃいろ,茶色,734229,222
+brown,79,こげちゃ,焦茶,5c4138,213
+brown,80,すすたけいろ,煤竹色,58443c,216
+brown,81,うぐいすちゃ,鶯茶,5b4c25,204
+brown,82,セピア,sepia,5a4128,195
+brown,83,あかさびいろ,赤錆色,6f2d21,189
+brown,84,べんがらいろ,弁柄色,732a1e,187
+brown,85,かっしょく,褐色,6f3310,178
+brown,86,くりいろ,栗色,5d2917,157
+brown,87,さびいろ,錆色,552c23,164
+brown,88,チョコレート,chocolate,4b251a,138
+brown,89,マルーン,maroon,501818,128
+brown,90,くろちゃ,黒茶,362519,116
+yellow,91,ぞうげいろ,象牙色,f3eed5,694
+yellow,92,アイボリー,ivory,f3eed5,694
+yellow,93,クリームイエロー,cream yellow,feedb0,667
+yellow,94,レグホーン,leghorn,fce6ab,653
+yellow,95,ブロンド,blond,eecf88,581
+yellow,96,たまごいろ,卵色,f7ca79,570
+yellow,97,ネープルスイエロー,Naples yellow,f9cc68,557
+yellow,98,かりやすいろ,刈安色,ecdb71,568
+yellow,99,カナリア,canary yellow,ffef6e,604
+yellow,100,きはだいろ,黄檗色,f9f06f,600
+yellow,101,レモンイエロー,lemon yellow,fff156,582
+yellow,102,ちゅうき,中黄,ffe615,506
+yellow,103,ジョンブリアン,jaune brillant,fcd41b,491
+yellow,104,イエロー,yellow,fcd41b,491
+yellow,105,きいろ,黄色,fbd01d,488
+yellow,106,たんぽぽいろ,蒲公英色,fbd01d,488
+yellow,107,クロムイエロー,chrome yellow,f8c620,478
+yellow,108,ひまわりいろ,向日葵色,ffbb00,442
+yellow,109,うこんいろ,鬱金色,f2b33d,482
+yellow,110,ゴールデンイエロー,golden yellow,f0aa61,507
+yellow,111,やまぶきいろ,山吹色,efa92a,450
+yellow,112,マリーゴールド,marigold,ea8c34,426
+yellow,113,からしいろ,芥子色,bca352,433
+yellow,114,カーキー,khaki,a28350,373
+yellow,115,アンバー,amber,aa764f,367
+yellow,116,おうどいろ,黄土色,ab7c45,364
+yellow,117,イエローオーカー,yellow ocher,ac823a,360
+yellow,118,こはくいろ,琥珀色,a7663b,328
+yellow,119,ブロンズ,bronze,88592a,267
+yellow,120,オリーブドラブ,olive drab,5e5835,235
+green,121,びゃくろく,白緑,cae3bf,620
+green,122,シャトルーズグリーン,chartreuse green,d9e367,547
+green,123,わかくさいろ,若草色,bbd347,469
+green,124,きみどり,黄緑,aacc3b,433
+green,125,ひわいろ,鶸色,c4c04b,463
+green,126,まっちゃいろ,抹茶色,adb367,455
+green,127,もえぎ,萌黄,a0ca5a,452
+green,128,シーグリーン,sea green,80bf5a,409
+green,129,リーフグリーン,leaf green,89b356,402
+green,130,わかばいろ,若葉色,a6c486,496
+green,131,ミントグリーン,mint green,87c693,480
+green,132,アップルグリーン,apple green,8fc186,470
+green,133,あおたけいろ,青竹色,6fb29c,445
+green,134,わかたけいろ,若竹色,5db98b,417
+green,135,せいじいろ,青磁色,5dad94,414
+green,136,コバルトグリーン,cobalt green,36b083,361
+green,137,みどり,緑,3baf75,351
+green,138,ピーコックグリーン,peacock green,00a48f,307
+green,139,あおみどり,青緑,00a388,299
+green,140,エメラルドグリーン,emerald green,00a771,280
+green,141,グリーン,green,00a565,266
+green,142,マラカイトグリーン,malachite green,009357,234
+green,143,ビリジアン,viridian,007d5f,220
+green,144,フォレストグリーン,forest green,237e61,258
+green,145,さびあさぎ,錆浅葱,4a807b,325
+green,146,まつばいろ,松葉色,6a8655,325
+green,147,うぐいすいろ,鶯色,83823d,322
+green,148,くさいろ,草色,627842,284
+green,149,グラスグリーン,grass green,627842,284
+green,150,ろくしょういろ,緑青色,3f7955,269
+green,151,こけいろ,苔色,57772f,253
+green,152,アイビーグリーン,ivy green,3f7036,229
+green,153,みるいろ,海松色,5f5f3b,249
+green,154,オリーブ,olive,5d5420,209
+green,155,オリーブグリーン,olive green,495527,197
+green,156,ちとせみどり,千歳緑,265a3c,188
+green,157,もえぎいろ,萌葱色,006d4d,186
+green,158,ときわいろ,常磐色,007042,178
+green,159,ビリヤードグリーン,billiard green,005142,147
+green,160,てついろ,鉄色,064739,134
+green,161,ボトルグリーン,bottle green,004b32,125
+green,162,ふかみどり,深緑,004e2d,123
+blue,163,ベビーブルー,baby blue,abdbe3,617
+blue,164,みずいろ,水色,acdbda,609
+blue,165,そらいろ,空色,8ed1e0,575
+blue,166,スカイブルー,sky blue,8ed1e0,575
+blue,167,ホライズンブルー,horizon blue,8fd1da,570
+blue,168,かめのぞき,甕覗き,91d0cd,558
+blue,169,わすれなぐさいろ,勿忘草色,77b8da,521
+blue,170,びゃくぐん,白群,75c6c3,510
+blue,171,しんばしいろ,新橋色,5bb3b5,451
+blue,172,みずあさぎ,水浅葱,6b9994,408
+blue,173,ヒアシンス,hyacinth,5f90bf,430
+blue,174,つゆくさいろ,露草色,2595c7,385
+blue,175,シアン,cyan,00a3db,382
+blue,176,ターコイズブルー,turquoise blue,00aebd,363
+blue,177,あお,青,0091c5,342
+blue,178,サックスブルー,sax blue,317c90,317
+blue,179,はなだいろ,縹色,2b7396,308
+blue,180,ふじなんど,藤納戸,706caa,390
+blue,181,ぐんじょういろ,群青色,4b64a1,336
+blue,182,ウルトラマリンブルー,ultramarine blue,3d5394,292
+blue,183,あいねず,藍鼠,557177,317
+blue,184,ナイルブルー,nile blue,2a9484,322
+blue,185,あさぎいろ,浅葱色,009c9e,314
+blue,186,ピーコックブルー,peacock blue,009895,301
+blue,187,セルリアンブルー,cerulean blue,00829e,288
+blue,188,ブルー,blue,0073b0,291
+blue,189,コバルトブルー,cobalt blue,0066a5,267
+blue,190,るりいろ,瑠璃色,285294,270
+blue,191,オリエンタルブルー,oriental blue,274b8f,257
+blue,192,るりこん,瑠璃紺,1d417a,216
+blue,193,こんあい,紺藍,3c4174,241
+blue,194,かちいろ,勝色,444b5b,234
+blue,195,なんどいろ,納戸色,00717a,235
+blue,196,マリンブルー,marine blue,005c6f,203
+blue,197,あいいろ,藍色,134a63,192
+blue,198,プルシャンブルー,Prussian blue,1a395d,176
+blue,199,アイアンブルー,iron blue,1a395d,176
+blue,200,こんいろ,紺色,1d3156,164
+blue,201,こんじょう,紺青,112b4c,136
+blue,202,ネイビーブルー,navy blue,172540,124
+blue,203,こいあい,濃藍,11233d,113
+blue,204,しこん,紫紺,2e1031,111
+blue,205,ミッドナイトブルー,midnight blue,00152d,66
+blue,206,てつこん,鉄紺,030f2c,62
+purple,207,ライラック,lilac,bfabc8,562
+purple,208,ふじいろ,藤色,a8adcc,545
+purple,209,ラベンダー,lavender,b0a2bf,529
+purple,210,オーキッド,orchid,c79bbc,542
+purple,211,あやめいろ,菖蒲色,b974a4,465
+purple,212,あかむらさき,赤紫,e1639b,479
+purple,213,ふじむらさき,藤紫,928db9,472
+purple,214,ウィスタリア,wistaria,7c7fb1,428
+purple,215,はとばいろ,鳩羽色,8d8095,418
+purple,216,ヘリオトロープ,heliotrope,7e6ea4,400
+purple,217,パープル,purple,89649d,394
+purple,218,モーブ,mauve,7f5b97,369
+purple,219,むらさき,紫,7c4b8d,340
+purple,220,こだいむらさき,古代紫,704c73,303
+purple,221,すみれいろ,菫色,655595,335
+purple,222,バイオレット,violet,655192,328
+purple,223,あおむらさき,青紫,644a8d,315
+purple,224,えどむらさき,江戸紫,634e86,311
+purple,225,ききょういろ,桔梗色,505596,315
+purple,226,かきつばたいろ,杜若色,435495,300
+purple,227,しょうぶいろ,菖蒲色,5d448a,299
+purple,228,パンジー,pansy,4a3781,258
+purple,229,なすこん,茄子紺,331936,130
+pink,230,さくらいろ,桜色,fceeeb,725
+pink,231,ベビーピンク,baby pink,fae0cf,681
+pink,232,シェルピンク,shell pink,f8d9c5,662
+pink,233,ネールピンク,nail pink,f8d6be,652
+pink,234,ときいろ,鴇色,eca5b2,579
+pink,235,ピンク,pink,eda49e,559
+pink,236,さんごいろ,珊瑚色,eda098,549
+pink,237,サーモンピンク,salmon pink,eea489,539
+pink,238,こうばいいろ,紅梅色,ea9395,530
+pink,239,ローズピンク,rose pink,e98f93,523
+pink,240,ももいろ,桃色,e8868f,509
+pink,241,オールドローズ,old rose,c97e84,459
+mono,242,しろ,白,fffffd,763
+mono,243,ホワイト,white,fffffd,763
+mono,244,ごふんいろ,胡粉色,fffffa,760
+mono,245,スノーホワイト,snow white,f6fbfd,750
+mono,246,きなりいろ,生成り色,f7f6eb,728
+mono,247,すないろ,砂色,ccc3a1,560
+mono,248,パールグレイ,pearl grey,c9c9c4,598
+mono,249,スカイグレイ,sky grey,b8bebf,565
+mono,250,シルバーグレイ,silver grey,979999,457
+mono,251,ぎんねず,銀鼠,969998,455
+mono,252,アッシュグレイ,ash grey,888a86,408
+mono,253,ちゃねずみ,茶鼠,90877c,403
+mono,254,ローズグレイ,rose grey,857c6e,367
+mono,255,ねずみいろ,鼠色,7e8080,382
+mono,256,りきゅうねずみ,利休鼠,646f63,310
+mono,257,グレイ,grey,6b6d6c,324
+mono,258,なまりいろ,鉛色,666b6c,317
+mono,259,はいいろ,灰色,646766,305
+mono,260,スチールグレイ,steel grey,5e5c60,282
+mono,261,スレートグレイ,slate grey,4f5255,246
+mono,262,チャコールグレイ,charcoal grey,3c393e,179
+mono,263,すみ,墨,212222,101
+mono,264,てつぐろ,鉄黒,191817,72
+mono,265,ランプブラック,lamp black,161616,66
+mono,266,くろ,黒,02010c,15
+mono,267,ブラック,black,02010c,15
+mono,268,きんいろ,金色,ffd700,470
+mono,269,ぎんいろ,銀色,c0c0c0,576
