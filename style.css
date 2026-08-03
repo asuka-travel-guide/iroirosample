@@ -1,6 +1,3 @@
-/* ==========================================
-   1. 全体設定 & 共通ルール
-   ========================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,24 +5,22 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: #f8f9fa;
-    color: #333;
 }
 
-/* サイト名（タイトル）の非表示 */
-header h1,
+/* サイトタイトルの非表示 */
 .site-title {
     display: none !important;
 }
 
-/* ==========================================
-   2. ヘッダー & メニュー
-   ========================================== */
+/* ------------------------------------------
+   ヘッダー & メニュー設定
+------------------------------------------ */
 header {
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
-    padding: 10px 16px;
+    padding: 12px 16px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -35,52 +30,50 @@ header nav {
     display: flex;
     justify-content: center;
     gap: 8px;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
-/* ヘッダーボタン（サイズ統一・シャープな角丸） */
-header nav button,
+/* ヘッダーボタンの共通基準（角丸小さめ＆幅統一） */
 .nav-btn {
     flex: 1;
+    min-width: 75px;
     max-width: 110px;
     height: 38px;
-    border-radius: 4px !important; /* 角丸を小さく統一 */
-    border: 1px solid #d0d0d0;
-    background-color: #f5f5f5;
-    color: #444444;
+    border-radius: 4px !important; /* 小さめの角丸で統一 */
+    border: 2px solid transparent; /* 非選択時は透明な枠 */
     font-size: 13px;
-    font-weight: 500;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.85;
 }
 
-header nav button:hover {
-    background-color: #e9e9e9;
+.nav-btn:hover {
+    opacity: 1;
 }
 
-/* 現在選択中のヘッダーメニュー（アクティブ状態） */
-header nav button.active {
-    background-color: #222222 !important;
-    color: #ffffff !important;
-    border-color: #222222 !important;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+/* 【選択中（アクティブ）のマークアップ】：背景色は維持して「外枠＋影」で強調 */
+.nav-btn.active {
+    opacity: 1;
+    border: 3px solid #111111 !important; /* クッキリとした黒外枠 */
+    box-shadow: 0 0 0 2px #ffffff, 0 2px 8px rgba(0,0,0,0.3); /* 白縁取り＋立体影 */
+    transform: scale(1.03); /* 少しだけ前に出す */
 }
 
-/* ==========================================
-   3. 一覧画面（#list-view）
-   ========================================== */
-/* 一覧の見出し（「◆ 赤系 ◆」等）を非表示 */
+/* ------------------------------------------
+   一覧画面（#list-view）
+------------------------------------------ */
+/* 見出しの非表示 */
 #list-view h2,
 #list-view .category-title {
     display: none !important;
 }
 
-/* カード一覧のグリッド配置 */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -90,96 +83,82 @@ header nav button.active {
     margin: 0 auto;
 }
 
-/* 各色カード（背景色はJavaScript側で個別に付与） */
+/* カード（背景はそれぞれの色、角丸小さめ） */
 .color-card {
-    border-radius: 4px !important; /* 角丸を小さく統一 */
+    border-radius: 4px !important;
     height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .color-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-/* カード内のテキスト構成 */
 .color-card-content {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
-/* 文字色（データに準拠） */
 .color-card .color-name {
     font-size: 14px;
     font-weight: bold;
 }
 
-/* カラーコード表記 */
 .color-card .color-code {
     font-size: 12px;
-    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-    letter-spacing: 0.5px;
-    opacity: 0.95;
+    font-family: monospace;
 }
 
-/* ==========================================
-   4. 各色サンプル・詳細画面（#detail-view）
-   ========================================== */
+/* ------------------------------------------
+   詳細画面（#detail-view）
+------------------------------------------ */
 #detail-view {
-    /* ヘッダー以外の領域全体を占有 */
-    min-height: calc(100vh - 59px);
+    min-height: calc(100vh - 63px);
     width: 100%;
     display: flex;
-    justify-content: space-between; /* 左右に矢印を配置 */
+    justify-content: space-between;
     align-items: center;
     padding: 0 24px;
     box-sizing: border-box;
-    transition: background-color 0.25s ease; /* 背景切り替えの滑らかさ */
+    transition: background-color 0.2s ease;
 }
 
-/* 「一覧に戻る」ボタンを非表示化（HTMLに存在しても非表示） */
-#back-to-list-btn,
-.back-button {
-    display: none !important;
-}
-
-/* 左右の矢印ナビゲーションボタン */
 .nav-arrow {
     background: rgba(255, 255, 255, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.4);
-    color: inherit; /* テキスト色を継承 */
-    font-size: 20px;
-    width: 44px;
-    height: 44px;
-    border-radius: 4px !important; /* シャープな角丸 */
+    color: inherit;
+    font-size: 22px;
+    width: 48px;
+    height: 48px;
+    border-radius: 4px !important;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(4px);
-    transition: all 0.2s ease;
+    transition: background 0.2s;
 }
 
 .nav-arrow:hover {
     background: rgba(255, 255, 255, 0.45);
 }
 
-/* 中央の色情報エリア */
 .detail-center-info {
     text-align: center;
 }
 
 .detail-center-info .color-name {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .detail-center-info .color-code {

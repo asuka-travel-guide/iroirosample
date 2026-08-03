@@ -4,44 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>いろ色SAMPLE</title>
-    <!-- 分離したCSSファイルを読み込み -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ヘッダーエリア -->
     <header>
-        <!-- サイト名（CSSでHIDDEN化設定済み） -->
+        <!-- サイトタイトル（HIDDEN） -->
         <h1 class="site-title">いろ色SAMPLE</h1>
 
-        <!-- ヘッダーメニュー（横幅統一・シャープな角丸・マークアップ用） -->
+        <!-- ヘッダーメニュー（元の背景色を保持しつつ外枠でマークアップ） -->
         <nav>
-            <button type="button" class="active">赤系</button>
-            <button type="button">茶系</button>
-            <button type="button">黄系</button>
-            <button type="button">緑系</button>
-            <button type="button">青系</button>
-            <button type="button">紫系</button>
-            <button type="button">ピンク系</button>
-            <button type="button">白黒系</button>
+            <button type="button" class="nav-btn active" data-category="赤系" style="background-color: #e60033; color: #fff;">赤系</button>
+            <button type="button" class="nav-btn" data-category="オレンジ系" style="background-color: #f39800; color: #fff;">オレンジ系</button>
+            <button type="button" class="nav-btn" data-category="茶系" style="background-color: #6e4a27; color: #fff;">茶系</button>
+            <button type="button" class="nav-btn" data-category="黄系" style="background-color: #ffd900; color: #333;">黄系</button>
+            <button type="button" class="nav-btn" data-category="緑系" style="background-color: #009944; color: #fff;">緑系</button>
+            <button type="button" class="nav-btn" data-category="青系" style="background-color: #00a0e9; color: #fff;">青系</button>
+            <button type="button" class="nav-btn" data-category="紫系" style="background-color: #920783; color: #fff;">紫系</button>
+            <button type="button" class="nav-btn" data-category="ピンク系" style="background-color: #e83929; color: #fff;">ピンク系</button>
+            <button type="button" class="nav-btn" data-category="白黒系" style="background-color: #4c5260; color: #fff;">白黒系</button>
         </nav>
     </header>
 
-    <!-- メインコンテンツ -->
     <main>
-        <!-- 1. 一覧画面（◆ 赤系 ◆ などの見出しはCSSでHIDDEN化設定済み） -->
-        <div id="list-view" class="grid-container">
-            <!-- JavaScriptでカード（背景色・文字色・コード入り）が動的生成されます -->
-        </div>
+        <!-- 一覧画面（◆ 赤系 ◆ などの見出しはHIDDEN化） -->
+        <div id="list-view" class="grid-container"></div>
 
-        <!-- 2. 各色サンプル画面（詳細表示） -->
-        <!-- 初期状態は非表示（display: none）。選択時にJavaScriptで背景色がその色になります -->
-        <div id="detail-view" style="display: none;">
-            <!-- JavaScriptで「<」「色情報」「>」のみが生成されます -->
-        </div>
+        <!-- 各色サンプル画面（詳細表示） -->
+        <div id="detail-view" style="display: none;"></div>
     </main>
 
-    <!-- 分離したJavaScriptファイルを読み込み -->
     <script src="script.js"></script>
 </body>
 </html>
