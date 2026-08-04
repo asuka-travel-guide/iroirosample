@@ -53,7 +53,6 @@ function parseCSV(text) {
     const name = cols[3] || "";
     const rawHex = cols[4] || "FFFFFF";
     const hex = rawHex.startsWith('#') ? rawHex : `#${rawHex}`;
-    const munsell = cols[5] || "-";
 
     const textColor = getContrastTextColor(hex);
 
@@ -62,7 +61,6 @@ function parseCSV(text) {
       kanaName,
       name,
       hex,
-      munsell,
       textColor
     };
 
@@ -169,7 +167,8 @@ function renderListView(colorList) {
 }
 
 /**
- * 【修正】「RGB：」の直後の余計なスペースを除去 (例: RGB：#DF548F)
+ * カラーサンプル（詳細画面）の表示
+ * ※マンセル値を削除し、RGBのみを表示
  */
 function showDetailView(globalIdx) {
   globalCurrentIndex = globalIdx;
@@ -201,7 +200,6 @@ function showDetailView(globalIdx) {
       <div class="info-rgb-group">
         <span class="info-rgb-label">RGB：</span><span class="info-hex">${colorData.hex.toUpperCase()}</span>
       </div>
-      <div class="info-munsell">マンセル値：${colorData.munsell}</div>
     </div>
   `;
 }
