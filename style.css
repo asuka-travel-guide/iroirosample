@@ -9,13 +9,12 @@ body {
     background-color: #f8f9fa;
 }
 
-/* サイト名タイトルのHIDDEN化 */
 .site-title {
     display: none !important;
 }
 
 /* ------------------------------------------
-   ヘッダーメニュー（画像デザインの再現）
+   ヘッダーメニュー（横幅1.2倍・文字hidden）
 ------------------------------------------ */
 header {
     background-color: #ffffff;
@@ -30,7 +29,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 1000px;
+    /* 横幅を1.2倍（1000px -> 1200px）に拡大 */
+    max-width: 1200px;
     margin: 0 auto;
     border: 1px solid #b3b3b3;
     border-radius: 4px;
@@ -38,14 +38,14 @@ header {
     background-color: #e6e6e6;
 }
 
-/* 左右の二重矢印ボタン（《 》） */
+/* ヘッダー左右の一重矢印ボタン（< >） */
 .nav-arrow-btn {
     background-color: #ffffff;
     border: none;
-    color: #555555;
-    font-size: 16px;
+    color: #333333;
+    font-size: 20px;
     font-weight: bold;
-    padding: 0 12px;
+    padding: 0 16px;
     height: 38px;
     cursor: pointer;
     display: flex;
@@ -58,11 +58,10 @@ header {
     background-color: #dddddd;
 }
 
-/* カテゴリボタンのグループ */
 #category-nav {
     display: flex;
     flex: 1;
-    gap: 2px; /* ボタン同士の境目 */
+    gap: 2px;
     background-color: #ffffff;
 }
 
@@ -70,9 +69,7 @@ header {
     flex: 1;
     height: 38px;
     border: none;
-    border-radius: 2px !important; /* 角丸は統一小さめ */
-    font-size: 14px;
-    font-weight: bold;
+    border-radius: 2px !important;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -81,20 +78,23 @@ header {
     transition: all 0.15s ease;
 }
 
+/* 【修正】ヘッダーボタン内のテキストを非表示にする */
+.nav-btn-text {
+    display: none !important;
+}
+
 .nav-btn:hover {
     opacity: 1;
 }
 
-/* マークアップ（選択中アクティブ状態）：黒枠＋外側の縁取り */
 .nav-btn.active {
     opacity: 1;
     outline: 3px solid #111111;
     outline-offset: -3px;
-    font-weight: 900;
 }
 
 /* ------------------------------------------
-   一覧画面（#list-view）
+   一覧画面（カード高さを3分の1に）
 ------------------------------------------ */
 #list-view h2,
 #list-view .category-title {
@@ -104,98 +104,106 @@ header {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 12px;
+    gap: 10px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* 各色カード（角丸統一小さめ） */
+/* 【修正】カードの高さを約3分の1（100px -> 36px）に変更 */
 .color-card {
     border-radius: 4px !important;
-    height: 100px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .color-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 .color-card-content {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .color-card .color-name {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
 
 .color-card .color-code {
-    font-size: 12px;
+    font-size: 11px;
     font-family: monospace;
 }
 
 /* ------------------------------------------
-   各色カラーサンプル画面（#detail-view）
+   カラーサンプル画面（テキスト背景同一化・おしゃれで太いフォント）
 ------------------------------------------ */
 #detail-view {
     min-height: calc(100vh - 55px);
     width: 100%;
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
     transition: background-color 0.2s ease;
 }
 
-/* 左上の詳細情報表示エリア */
+/* 【修正】左上テキストエリア（背景色を無くし本体と同じ色に） */
 .detail-top-left-info {
     position: absolute;
-    top: 24px;
-    left: 28px;
+    top: 36px;
+    left: 40px;
     text-align: left;
-    font-size: 15px;
-    line-height: 1.7;
-    font-weight: 500;
-    background: rgba(0, 0, 0, 0.15); /* 可読性を高める薄い背景 */
-    padding: 12px 18px;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
+    background: transparent; /* 背景を完全透明に */
+    padding: 0;
+    
+    /* 太めでおしゃれなスタイリッシュフォント */
+    font-family: "Montserrat", "Avenir Next", "Hiragino Sans", "ヒラギノ角ゴ ProN W6", sans-serif;
+    font-weight: 800; /* 極太 */
+    letter-spacing: 0.5px;
 }
 
-.detail-top-left-info div {
-    margin-bottom: 2px;
+/* ひらがな/カタカナ (ふじいろ) */
+.info-kana {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 4px;
 }
 
-/* 左右矢印ナビゲーション（< >） */
-.nav-arrow {
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: inherit;
+/* 漢字/名称 (藤色) */
+.info-kanji {
+    font-size: 38px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+/* RGB & カラーコード (#A8ADCC) */
+.info-rgb-group {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.info-rgb-label {
+    font-weight: 900;
+}
+
+.info-hex {
     font-size: 24px;
-    width: 48px;
-    height: 48px;
-    border-radius: 4px !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-    transition: background 0.2s;
-    z-index: 10;
+    font-family: "SFMono-Regular", Consolas, monospace;
 }
 
-.nav-arrow:hover {
-    background: rgba(255, 255, 255, 0.45);
+/* マンセル値 */
+.info-munsell {
+    font-size: 22px;
+    line-height: 1.4;
 }
