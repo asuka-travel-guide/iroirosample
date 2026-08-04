@@ -12,7 +12,6 @@ const CATEGORY_LIST = [
   { name: "白黒", key: "mono" }
 ];
 
-// 元のデフォルトメタ情報を保持
 const DEFAULT_META = {
   title: "カラーサンプル | JIS規格(Z 8102)・RGB・HEX対応 673色一覧",
   description: "JIS規格 Z 8102:2001（物体色の色名）269色を含む全673色のカラーサンプルサイト。各色のRGB（16進数カラーコード）を網羅したシンプルで使いやすい色見本帳です。"
@@ -28,8 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeaderMenu();
   loadCSVAndInit();
 
-  // ブラウザの「戻る」「進む」ボタン操作（ハッシュ変更）に対応
-  window.addEventListener("popstate", handleHashChange);
+  // ブラウザの「戻る」「進む」ボタン操作（URLパラメータ変更）に対応
+  window.addEventListener("popstate", handleUrlChange);
 });
 
 async function loadCSVAndInit() {
@@ -42,8 +41,8 @@ async function loadCSVAndInit() {
     
     parseCSV(csvText);
 
-    // 初回ロード時にURLのハッシュ（パーマリンク）をチェック
-    handleHashChange();
+    // 初回ロード時にURLパラメータ（?color=◯◯）をチェック
+    handleUrlChange();
   } catch (error) {
     console.error("CSV読み込みエラー:", error);
   }
@@ -102,7 +101,7 @@ function initHeaderMenu() {
 
   navButtons.forEach((button, idx) => {
     button.addEventListener("click", () => {
-      // 一覧に戻る際はハッシュを消去
+      // 一覧に戻る際はURLパラメータを消去
       history.pushState(null, "", window.location.pathname);
       switchCategoryByIndex(idx);
     });
@@ -126,15 +125,17 @@ function initHeaderMenu() {
 }
 
 /**
- * URLのハッシュ（例: #肉桂色 または #nikkeiiro）を判定して画面を切り替える
+ * URLパラメータ（例: ?color=肉桂色）を判定して画面を切り替える
  */
-function handleHashChange() {
-  const hash = decodeURIComponent(window.location.hash.replace('#', '')).trim();
+function handleUrlChange() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const colorParam = urlParams.get('color');
 
-  if (hash) {
+  if (colorParam) {
+    const decodedParam = decodeURIComponent(colorParam).trim();
     // ひらがな・漢字名で一致する色を検索
     const foundIdx = allColorsFlat.findIndex(
-      item => item.kanaName === hash || item.name === hash
+      item => item.kanaName === decodedParam || item.name === decodedParam
     );
 
     if (foundIdx >= 0) {
@@ -143,7 +144,7 @@ function handleHashChange() {
     }
   }
 
-  // ハッシュがない、または見つからない場合はデフォルトカテゴリ（0）を表示
+  // パラメータがない、または見つからない場合はデフォルトカテゴリ（0）を表示
   switchCategoryByIndex(currentCategoryIndex || 0);
 }
 
@@ -185,10 +186,13 @@ function renderListView(colorList) {
   listView.innerHTML = "";
 
   colorList.forEach((item) => {
-    const card = document.createElement("div");
+    // 検索エンジンが各色リンクをクロールできるよう <a> タグ構造に変更
+    const card = document.createElement("a");
     card.className = "color-card";
     card.style.backgroundColor = item.hex;
     card.style.color = item.textColor;
+    card.style.textDecoration = "none"; // リンクの下線を削除
+    card.href = `?color=${encodeURIComponent(item.kanaName)}`;
 
     card.innerHTML = `
       <div class="color-card-content">
@@ -197,7 +201,8 @@ function renderListView(colorList) {
       </div>
     `;
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click", (e) => {
+      e.preventDefault(); // 通常のページ遷移を防止してSPA風に高速切替
       const gIdx = allColorsFlat.indexOf(item);
       showDetailView(gIdx >= 0 ? gIdx : 0, true);
     });
@@ -209,7 +214,7 @@ function renderListView(colorList) {
 /**
  * カラーサンプル（詳細画面）の表示
  * @param {number} globalIdx - カラーインデックス
- * @param {boolean} updateHistory - URL（ハッシュ）履歴を更新するかどうか
+ * @param {boolean} updateHistory - URL（パラメータ）履歴を更新するかどうか
  */
 function showDetailView(globalIdx, updateHistory = true) {
   globalCurrentIndex = globalIdx;
@@ -228,10 +233,10 @@ function showDetailView(globalIdx, updateHistory = true) {
     });
   }
 
-  // パーマリンク（ハッシュ）の設定
-  const colorHash = `#${encodeURIComponent(colorData.kanaName)}`;
+  // URLパラメータの設定
+  const newUrl = `?color=${encodeURIComponent(colorData.kanaName)}`;
   if (updateHistory) {
-    history.pushState(null, "", colorHash);
+    history.pushState(null, "", newUrl);
   }
 
   // SEO用メタタグ & タイトルの動的書き換え
@@ -275,7 +280,7 @@ function updateMetaTags(titleText, descText) {
   let ogDesc = document.querySelector('meta[property="og:description"]');
   if (ogDesc) ogDesc.setAttribute("content", descText);
 
-  // OG URL (現在のハッシュ付きフルURL)
+  // OG URL
   let ogUrl = document.querySelector('meta[property="og:url"]');
   if (ogUrl) ogUrl.setAttribute("content", window.location.href);
 }
