@@ -15,11 +15,10 @@ body {
 }
 
 /* ------------------------------------------
-   ヘッダーメニュー（境界線削除・余白統一）
+   ヘッダーメニュー（背景白・高級感のある枠線付き）
 ------------------------------------------ */
 header {
     background-color: #ffffff;
-    /* ヘッダーとメインの間の線を削除 */
     border-bottom: none;
     padding: 10px 16px;
     position: sticky;
@@ -34,48 +33,51 @@ header {
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
-    /* ボタン同士の間隔をすべて 2px に統一 */
     gap: 2px;
 }
 
-/* ヘッダー左右の一重矢印ボタン（< >） */
+/* 【修正】ヘッダー左右矢印ボタン（背景白・高級感枠線） */
 .nav-arrow-btn {
-    background-color: #f0f0f0;
-    border: none;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
     color: #333333;
     font-size: 18px;
     font-weight: bold;
     padding: 0 14px;
     height: 38px;
-    border-radius: 4px !important; /* 一覧カードと同じ角丸 */
+    border-radius: 4px !important;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
 }
 
 .nav-arrow-btn:hover {
-    background-color: #e0e0e0;
+    background-color: #f5f5f5;
+    border-color: #cccccc;
 }
 
 /* カテゴリボタンのグループ */
 #category-nav {
     display: flex;
     flex: 1;
-    gap: 2px; /* メニューボタン同士の間隔 */
+    gap: 2px;
 }
 
+/* 【修正】メニューボタン（背景白・枠線追加で高級感アップ） */
 .nav-btn {
     flex: 1;
     height: 38px;
-    border: none;
-    border-radius: 4px !important; /* 一覧カードと同じ角丸 */
+    border: 1px solid #e0e0e0;
+    border-radius: 4px !important;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0.85;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -87,72 +89,71 @@ header {
     opacity: 1;
 }
 
-/* 【修正】選択中のメニュー：黒枠を廃止し、少し上に浮き上がるアニメーション */
+/* 選択中のメニュー */
 .nav-btn.active {
     opacity: 1;
     outline: none !important;
-    transform: translateY(-3px); /* 少し上に浮き上がる */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* 浮き上がりを強調する影 */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
 }
 
 /* ------------------------------------------
-   一覧画面（カード高さ調整・高級感ある浮遊感）
+   一覧画面（左揃え・文字拡大・高さ1.2倍・間隔2/3）
 ------------------------------------------ */
 #list-view h2,
 #list-view .category-title {
     display: none !important;
 }
 
+/* 【修正】カード間隔を3分の2（12px -> 8px）に縮小 */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 12px;
+    gap: 8px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* 【修正】カード（高さ44px・おしゃれなフォント・高級感のある浮遊感） */
+/* 【修正】カード（高さ1.2倍 44px -> 53px、適度なインデントで左揃え） */
 .color-card {
     border-radius: 4px !important;
-    height: 44px; /* 色名とRGBコードが2行綺麗に入る高さ */
+    height: 53px; /* 44pxの約1.2倍 */
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start; /* 左揃え */
+    padding-left: 14px; /* 適度なインデント */
     cursor: pointer;
     
-    /* おしゃれ＆スタイリッシュなフォント設定 */
     font-family: "Montserrat", "Avenir Next", "SF Pro Display", "Hiragino Sans", sans-serif;
     
-    /* 上品な初期シャドウ */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
     transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* ホバー時の高級な浮き上がり効果 */
 .color-card:hover {
-    transform: translateY(-4px); /* 上にふわりと浮遊 */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10); /* やわらかい立体影 */
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
 }
 
 .color-card-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* テキスト左揃え */
     gap: 2px;
-    line-height: 1.15;
+    line-height: 1.2;
 }
 
+/* 【修正】フォントを少し拡大 */
 .color-card .color-name {
-    font-size: 12px;
+    font-size: 13px; /* 12px -> 13px */
     font-weight: 700;
     letter-spacing: 0.3px;
 }
 
 .color-card .color-code {
-    font-size: 10px;
+    font-size: 11px; /* 10px -> 11px */
     font-family: "SFMono-Regular", Consolas, Menlo, monospace;
     font-weight: 600;
     opacity: 0.9;
@@ -160,7 +161,7 @@ header {
 }
 
 /* ------------------------------------------
-   カラーサンプル画面（読み仮名を少し小さく）
+   カラーサンプル画面
 ------------------------------------------ */
 #detail-view {
     min-height: calc(100vh - 58px);
@@ -184,22 +185,19 @@ header {
     letter-spacing: 0.5px;
 }
 
-/* 【修正】読み仮名（ひらがな/カタカナ）を少し小さく調整 */
 .info-kana {
-    font-size: 22px; /* 28px -> 22px に変更 */
+    font-size: 22px;
     line-height: 1.2;
     margin-bottom: 2px;
     opacity: 0.95;
 }
 
-/* 漢字/名称 */
 .info-kanji {
     font-size: 38px;
     line-height: 1.2;
     margin-bottom: 16px;
 }
 
-/* RGB & カラーコード */
 .info-rgb-group {
     font-size: 22px;
     line-height: 1.4;
@@ -215,7 +213,6 @@ header {
     font-family: "SFMono-Regular", Consolas, monospace;
 }
 
-/* マンセル値 */
 .info-munsell {
     font-size: 22px;
     line-height: 1.4;

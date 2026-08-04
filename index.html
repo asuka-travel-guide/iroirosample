@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>カラーサンプル</title>
+    <!-- Faviconの設定 -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,10 +14,9 @@
         <h1 class="site-title">カラーサンプル</h1>
 
         <div class="nav-container">
-            <!-- 【修正】一重矢印（<） -->
+            <!-- 一重矢印（<） -->
             <button type="button" class="nav-arrow-btn" id="hdr-prev-btn" aria-label="前へ">&lt;</button>
             
-            <!-- 【修正】テキストを nav-btn-text クラスで囲みCSSでhidden化 -->
             <nav id="category-nav">
                 <button type="button" class="nav-btn active" data-category="赤系" style="background-color: #d7003a; color: #fff;"><span class="nav-btn-text">赤系</span></button>
                 <button type="button" class="nav-btn" data-category="橙系" style="background-color: #eb6100; color: #fff;"><span class="nav-btn-text">橙系</span></button>
@@ -28,7 +29,7 @@
                 <button type="button" class="nav-btn" data-category="白黒" style="background-color: #595857; color: #fff;"><span class="nav-btn-text">白黒</span></button>
             </nav>
 
-            <!-- 【修正】一重矢印（>） -->
+            <!-- 一重矢印（>） -->
             <button type="button" class="nav-arrow-btn" id="hdr-next-btn" aria-label="次へ">&gt;</button>
         </div>
     </header>

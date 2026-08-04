@@ -97,7 +97,6 @@ function initHeaderMenu() {
     });
   });
 
-  // 【修正】一重矢印ボタン（< >）で操作
   document.getElementById("hdr-prev-btn").addEventListener("click", () => {
     if (isDetailView) {
       navigateGlobalColor(-1);
@@ -170,9 +169,7 @@ function renderListView(colorList) {
 }
 
 /**
- * 【修正】カラーサンプル画面のレンダリング
- * - メイン内の左右矢印を削除
- * - 不要なラベル/カッコ/RGB数値を削除し、要求通りの太目でおしゃれな文字配置に変更
+ * 【修正】「RGB：」の直後の余計なスペースを除去 (例: RGB：#DF548F)
  */
 function showDetailView(globalIdx) {
   globalCurrentIndex = globalIdx;
@@ -197,14 +194,12 @@ function showDetailView(globalIdx) {
   detailView.style.backgroundColor = colorData.hex;
   detailView.style.color = colorData.textColor;
 
-  // メインエリア内の矢印を削除し、指定のテキスト構成のみを出力
   detailView.innerHTML = `
     <div class="detail-top-left-info">
       <div class="info-kana">${colorData.kanaName}</div>
       <div class="info-kanji">${colorData.name}</div>
       <div class="info-rgb-group">
-        <span class="info-rgb-label">RGB：</span>
-        <span class="info-hex">${colorData.hex.toUpperCase()}</span>
+        <span class="info-rgb-label">RGB：</span><span class="info-hex">${colorData.hex.toUpperCase()}</span>
       </div>
       <div class="info-munsell">マンセル値：${colorData.munsell}</div>
     </div>
