@@ -9,13 +9,13 @@ body {
     background-color: #f8f9fa;
 }
 
-/* サイトタイトルの非表示 */
+/* サイトタイトルの視視的非表示（SEO用テキストとして保持） */
 .site-title {
     display: none !important;
 }
 
 /* ------------------------------------------
-   ヘッダーメニュー（背景白・高級感のある枠線付き）
+   ヘッダーメニュー
 ------------------------------------------ */
 header {
     background-color: #ffffff;
@@ -36,12 +36,12 @@ header {
     gap: 2px;
 }
 
-/* 【修正】ヘッダー左右矢印ボタン（背景白・高級感枠線） */
+/* 【修正】左右矢印ボタン（枠線を濃くして認識しやすく・文字色をマイルドなグレーに） */
 .nav-arrow-btn {
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    color: #333333;
-    font-size: 18px;
+    border: 1px solid #b0b0b0; /* 枠線を少し濃くしてボタン感をしっかり表現 */
+    color: #777777;            /* 矢印の黒の主張を抑えた上品なグレー */
+    font-size: 16px;
     font-weight: bold;
     padding: 0 14px;
     height: 38px;
@@ -50,13 +50,14 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
 }
 
 .nav-arrow-btn:hover {
-    background-color: #f5f5f5;
-    border-color: #cccccc;
+    background-color: #f8f9fa;
+    border-color: #888888;     /* ホバー時は枠線をもう少し強調 */
+    color: #444444;            /* ホバー時に少し矢印を濃く */
 }
 
 /* カテゴリボタンのグループ */
@@ -66,7 +67,7 @@ header {
     gap: 2px;
 }
 
-/* 【修正】メニューボタン（背景白・枠線追加で高級感アップ） */
+/* メニューボタン（背景白・立体感のある細枠） */
 .nav-btn {
     flex: 1;
     height: 38px;
@@ -105,7 +106,7 @@ header {
     display: none !important;
 }
 
-/* 【修正】カード間隔を3分の2（12px -> 8px）に縮小 */
+/* カード間隔（8px） */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -115,7 +116,7 @@ header {
     margin: 0 auto;
 }
 
-/* 【修正】カード（高さ1.2倍 44px -> 53px、適度なインデントで左揃え） */
+/* カードデザイン */
 .color-card {
     border-radius: 4px !important;
     height: 53px; /* 44pxの約1.2倍 */
@@ -140,20 +141,19 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; /* テキスト左揃え */
+    align-items: flex-start;
     gap: 2px;
     line-height: 1.2;
 }
 
-/* 【修正】フォントを少し拡大 */
 .color-card .color-name {
-    font-size: 13px; /* 12px -> 13px */
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.3px;
 }
 
 .color-card .color-code {
-    font-size: 11px; /* 10px -> 11px */
+    font-size: 11px;
     font-family: "SFMono-Regular", Consolas, Menlo, monospace;
     font-weight: 600;
     opacity: 0.9;
@@ -161,7 +161,7 @@ header {
 }
 
 /* ------------------------------------------
-   カラーサンプル画面
+   カラーサンプル画面（詳細）
 ------------------------------------------ */
 #detail-view {
     min-height: calc(100vh - 58px);
@@ -201,7 +201,6 @@ header {
 .info-rgb-group {
     font-size: 22px;
     line-height: 1.4;
-    margin-bottom: 6px;
 }
 
 .info-rgb-label {
@@ -211,9 +210,4 @@ header {
 .info-hex {
     font-size: 24px;
     font-family: "SFMono-Regular", Consolas, monospace;
-}
-
-.info-munsell {
-    font-size: 22px;
-    line-height: 1.4;
 }
