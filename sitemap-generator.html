@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>sitemap.xml 生成ツール</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        input[type="text"] { width: 400px; padding: 8px; font-size: 16px; }
+        button { padding: 8px 16px; font-size: 16px; cursor: pointer; }
+        textarea { width: 100%; height: 400px; margin-top: 15px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>sitemap.xml 自動生成ツール</h1>
+    <p>あなたのサイトのドメイン（トップページURL）を入力して「sitemap.xml を生成」を押してください。</p>
+    
+    <label>サイトのドメインURL: </label>
+    <input type="text" id="site-url" value="https://example.com/" placeholder="https://yourdomain.com/">
+    <button onclick="generateSitemap()">sitemap.xml を生成</button>
+
+    <br><br>
+    <button id="download-btn" onclick="downloadSitemap()" style="display:none; background-color: #009854; color: white; border: none; border-radius: 4px;">sitemap.xml をダウンロード</button>
+    
+    <textarea id="output" readonly placeholder="生成された XML がここに表示されます..."></textarea>
+
+    <script>
+        const CSV_FILE_PATH = 'iro.csv';
+
+        async function generateSitemap() {
+            let baseUrl = document.getElementById('site-url').value.trim();
+            if (!baseUrl.endsWith('/')) {
+                baseUrl += '/';
+            }
+
+            try {
+                const response = await fetch(CSV_FILE_PATH);
+                if (!response.ok) throw new Error("iro.csv の読み込みに失敗しました");
+                const text = await response.text();
+
+                const lines = text.trim().split(/\r\n|\n/);
+                const today = new Date().toISOString().split('T')[0];
+
+                let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+                xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+                // 1. トップページのURL
+                xml += `  <url>\n`;
+                xml += `    <loc>${escapeXml(baseUrl)}</loc>\n`;
+                xml += `    <lastmod>${today}</lastmod>\n`;
+                xml += `    <changefreq>daily</changefreq>\n`;
+                xml += `    <priority>1.0</priority>\n`;
+                xml += `  </url>\n`;
+
+                // 2. CSV内の各色のパーマリンクURL (#ひらがな名)
+                let count = 0;
+                lines.forEach(line => {
+                    if (!line.trim()) return;
+                    const cols = line.split(',').map(item => item.trim());
+                    if (cols.length < 5) return;
+
+                    const kanaName = cols[2];
+                    if (kanaName) {
+                        const encodedKana = encodeURIComponent(kanaName);
+                        const fullUrl = `${baseUrl}#${encodedKana}`;
+
+                        xml += `  <url>\n`;
+                        xml += `    <loc>${escapeXml(fullUrl)}</loc>\n`;
+                        xml += `    <lastmod>${today}</lastmod>\n`;
+                        xml += `    <changefreq>weekly</changefreq>\n`;
+                        xml += `    <priority>0.8</priority>\n`;
+                        xml += `  </url>\n`;
+                        count++;
+                    }
+                });
+
+                xml += `</urlset>`;
+
+                document.getElementById('output').value = xml;
+                document.getElementById('download-btn').style.display = 'inline-block';
+                alert(`トップページ + 全${count}色のサイトマップ XML が正常に生成されました！`);
+
+            } catch (err) {
+                alert("エラー: " + err.message);
+            }
+        }
+
+        function escapeXml(unsafe) {
+            return unsafe.replace(/[<>&'"]/g, function (c) {
+                switch (c) {
+                    case '<': return '&lt;';
+                    case '>': return '&gt;';
+                    case '&': return '&amp;';
+                    case '\'': return '&apos;';
+                    case '"': return '&quot;';
+                }
+            });
+        }
+
+        function downloadSitemap() {
+            const content = document.getElementById('output').value;
+            if (!content) return;
+
+            const blob = new Blob([content], { type: 'text/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sitemap.xml';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
