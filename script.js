@@ -23,8 +23,15 @@ let currentCategoryIndex = 0;
 let globalCurrentIndex = 0;
 let isDetailView = false;
 
+// フリック操作用変数
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderMenu();
+  initFlickEvents();
   loadCSVAndInit();
 
   // ブラウザの「戻る」「進む」ボタン操作（URLパラメータ変更）に対応
@@ -108,20 +115,73 @@ function initHeaderMenu() {
   });
 
   document.getElementById("hdr-prev-btn").addEventListener("click", () => {
-    if (isDetailView) {
-      navigateGlobalColor(-1);
-    } else {
-      navigateCategory(-1);
-    }
+    handlePrevNavigation();
   });
 
   document.getElementById("hdr-next-btn").addEventListener("click", () => {
-    if (isDetailView) {
-      navigateGlobalColor(1);
-    } else {
-      navigateCategory(1);
-    }
+    handleNextNavigation();
   });
+}
+
+/**
+ * 前へ移動する共通処理
+ */
+function handlePrevNavigation() {
+  if (isDetailView) {
+    navigateGlobalColor(-1);
+  } else {
+    navigateCategory(-1);
+  }
+}
+
+/**
+ * 次へ移動する共通処理
+ */
+function handleNextNavigation() {
+  if (isDetailView) {
+    navigateGlobalColor(1);
+  } else {
+    navigateCategory(1);
+  }
+}
+
+/**
+ * フリック（スワイプ）操作の初期化
+ */
+function initFlickEvents() {
+  const targetArea = document.body;
+
+  targetArea.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  targetArea.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipeGesture();
+  }, { passive: true });
+}
+
+/**
+ * スワイプの判定処理
+ */
+function handleSwipeGesture() {
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  const minSwipeDistance = 50; // スワイプ検知の最小距離（px）
+
+  // 縦スクロールと誤判定しないよう、横移動量が十分大きく縦移動より大きい場合のみ検知
+  if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX < 0) {
+      // 左スワイプ（指を左へ＝次へ）
+      handleNextNavigation();
+    } else {
+      // 右スワイプ（指を右へ＝前へ）
+      handlePrevNavigation();
+    }
+  }
 }
 
 /**
