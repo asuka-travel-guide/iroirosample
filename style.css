@@ -5,80 +5,80 @@
 }
 
 body {
-    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", MeiRyo, sans-serif;
+    font-family: "Montserrat", "Avenir Next", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", sans-serif;
     background-color: #f8f9fa;
 }
 
+/* サイトタイトルの非表示 */
 .site-title {
     display: none !important;
 }
 
 /* ------------------------------------------
-   ヘッダーメニュー（横幅1.2倍・文字hidden）
+   ヘッダーメニュー（境界線削除・余白統一）
 ------------------------------------------ */
 header {
     background-color: #ffffff;
-    border-bottom: 1px solid #cccccc;
-    padding: 8px 12px;
+    /* ヘッダーとメインの間の線を削除 */
+    border-bottom: none;
+    padding: 10px 16px;
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
+/* コンテナ全体 */
 .nav-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* 横幅を1.2倍（1000px -> 1200px）に拡大 */
     max-width: 1200px;
     margin: 0 auto;
-    border: 1px solid #b3b3b3;
-    border-radius: 4px;
-    overflow: hidden;
-    background-color: #e6e6e6;
+    /* ボタン同士の間隔をすべて 2px に統一 */
+    gap: 2px;
 }
 
 /* ヘッダー左右の一重矢印ボタン（< >） */
 .nav-arrow-btn {
-    background-color: #ffffff;
+    background-color: #f0f0f0;
     border: none;
     color: #333333;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    padding: 0 16px;
+    padding: 0 14px;
     height: 38px;
+    border-radius: 4px !important; /* 一覧カードと同じ角丸 */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.15s;
+    transition: all 0.2s ease;
 }
 
 .nav-arrow-btn:hover {
-    background-color: #dddddd;
+    background-color: #e0e0e0;
 }
 
+/* カテゴリボタンのグループ */
 #category-nav {
     display: flex;
     flex: 1;
-    gap: 2px;
-    background-color: #ffffff;
+    gap: 2px; /* メニューボタン同士の間隔 */
 }
 
 .nav-btn {
     flex: 1;
     height: 38px;
     border: none;
-    border-radius: 2px !important;
+    border-radius: 4px !important; /* 一覧カードと同じ角丸 */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.9;
-    transition: all 0.15s ease;
+    opacity: 0.85;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* 【修正】ヘッダーボタン内のテキストを非表示にする */
 .nav-btn-text {
     display: none !important;
 }
@@ -87,14 +87,16 @@ header {
     opacity: 1;
 }
 
+/* 【修正】選択中のメニュー：黒枠を廃止し、少し上に浮き上がるアニメーション */
 .nav-btn.active {
     opacity: 1;
-    outline: 3px solid #111111;
-    outline-offset: -3px;
+    outline: none !important;
+    transform: translateY(-3px); /* 少し上に浮き上がる */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* 浮き上がりを強調する影 */
 }
 
 /* ------------------------------------------
-   一覧画面（カード高さを3分の1に）
+   一覧画面（カード高さ調整・高級感ある浮遊感）
 ------------------------------------------ */
 #list-view h2,
 #list-view .category-title {
@@ -104,89 +106,100 @@ header {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 10px;
+    gap: 12px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* 【修正】カードの高さを約3分の1（100px -> 36px）に変更 */
+/* 【修正】カード（高さ44px・おしゃれなフォント・高級感のある浮遊感） */
 .color-card {
     border-radius: 4px !important;
-    height: 36px;
+    height: 44px; /* 色名とRGBコードが2行綺麗に入る高さ */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    
+    /* おしゃれ＆スタイリッシュなフォント設定 */
+    font-family: "Montserrat", "Avenir Next", "SF Pro Display", "Hiragino Sans", sans-serif;
+    
+    /* 上品な初期シャドウ */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+/* ホバー時の高級な浮き上がり効果 */
 .color-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transform: translateY(-4px); /* 上にふわりと浮遊 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10); /* やわらかい立体影 */
 }
 
 .color-card-content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    gap: 6px;
+    align-items: center;
+    gap: 2px;
+    line-height: 1.15;
 }
 
 .color-card .color-name {
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
 .color-card .color-code {
-    font-size: 11px;
-    font-family: monospace;
+    font-size: 10px;
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
 }
 
 /* ------------------------------------------
-   カラーサンプル画面（テキスト背景同一化・おしゃれで太いフォント）
+   カラーサンプル画面（読み仮名を少し小さく）
 ------------------------------------------ */
 #detail-view {
-    min-height: calc(100vh - 55px);
+    min-height: calc(100vh - 58px);
     width: 100%;
     position: relative;
     padding: 30px;
     box-sizing: border-box;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.25s ease;
 }
 
-/* 【修正】左上テキストエリア（背景色を無くし本体と同じ色に） */
 .detail-top-left-info {
     position: absolute;
     top: 36px;
     left: 40px;
     text-align: left;
-    background: transparent; /* 背景を完全透明に */
+    background: transparent;
     padding: 0;
     
-    /* 太めでおしゃれなスタイリッシュフォント */
     font-family: "Montserrat", "Avenir Next", "Hiragino Sans", "ヒラギノ角ゴ ProN W6", sans-serif;
-    font-weight: 800; /* 極太 */
+    font-weight: 800;
     letter-spacing: 0.5px;
 }
 
-/* ひらがな/カタカナ (ふじいろ) */
+/* 【修正】読み仮名（ひらがな/カタカナ）を少し小さく調整 */
 .info-kana {
-    font-size: 28px;
+    font-size: 22px; /* 28px -> 22px に変更 */
     line-height: 1.2;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    opacity: 0.95;
 }
 
-/* 漢字/名称 (藤色) */
+/* 漢字/名称 */
 .info-kanji {
     font-size: 38px;
     line-height: 1.2;
     margin-bottom: 16px;
 }
 
-/* RGB & カラーコード (#A8ADCC) */
+/* RGB & カラーコード */
 .info-rgb-group {
     font-size: 22px;
     line-height: 1.4;
