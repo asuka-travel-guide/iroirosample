@@ -12,6 +12,12 @@ const CATEGORY_LIST = [
   { name: "白黒", key: "mono" }
 ];
 
+// 元のデフォルトメタ情報を保持
+const DEFAULT_META = {
+  title: "カラーサンプル | JIS規格(Z 8102)・RGB・HEX対応 673色一覧",
+  description: "JIS規格 Z 8102:2001（物体色の色名）269色を含む全673色のカラーサンプルサイト。各色のRGB（16進数カラーコード）を網羅したシンプルで使いやすい色見本帳です。"
+};
+
 let colorDataMap = {};
 let allColorsFlat = [];
 let currentCategoryIndex = 0;
@@ -21,6 +27,9 @@ let isDetailView = false;
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderMenu();
   loadCSVAndInit();
+
+  // ブラウザの「戻る」「進む」ボタン操作（ハッシュ変更）に対応
+  window.addEventListener("popstate", handleHashChange);
 });
 
 async function loadCSVAndInit() {
@@ -32,7 +41,9 @@ async function loadCSVAndInit() {
     const csvText = await response.text();
     
     parseCSV(csvText);
-    switchCategoryByIndex(0);
+
+    // 初回ロード時にURLのハッシュ（パーマリンク）をチェック
+    handleHashChange();
   } catch (error) {
     console.error("CSV読み込みエラー:", error);
   }
@@ -91,6 +102,8 @@ function initHeaderMenu() {
 
   navButtons.forEach((button, idx) => {
     button.addEventListener("click", () => {
+      // 一覧に戻る際はハッシュを消去
+      history.pushState(null, "", window.location.pathname);
       switchCategoryByIndex(idx);
     });
   });
@@ -112,9 +125,34 @@ function initHeaderMenu() {
   });
 }
 
+/**
+ * URLのハッシュ（例: #肉桂色 または #nikkeiiro）を判定して画面を切り替える
+ */
+function handleHashChange() {
+  const hash = decodeURIComponent(window.location.hash.replace('#', '')).trim();
+
+  if (hash) {
+    // ひらがな・漢字名で一致する色を検索
+    const foundIdx = allColorsFlat.findIndex(
+      item => item.kanaName === hash || item.name === hash
+    );
+
+    if (foundIdx >= 0) {
+      showDetailView(foundIdx, false); // URL更新を行わずに表示
+      return;
+    }
+  }
+
+  // ハッシュがない、または見つからない場合はデフォルトカテゴリ（0）を表示
+  switchCategoryByIndex(currentCategoryIndex || 0);
+}
+
 function switchCategoryByIndex(catIndex) {
   currentCategoryIndex = catIndex;
   isDetailView = false;
+
+  // デフォルトのメタ・タイトルに戻す
+  updateMetaTags(DEFAULT_META.title, DEFAULT_META.description);
 
   const navButtons = document.querySelectorAll("#category-nav button");
   navButtons.forEach((btn, idx) => {
@@ -137,6 +175,8 @@ function navigateCategory(step) {
   } else if (newCatIdx >= CATEGORY_LIST.length) {
     newCatIdx = 0;
   }
+  
+  history.pushState(null, "", window.location.pathname);
   switchCategoryByIndex(newCatIdx);
 }
 
@@ -159,7 +199,7 @@ function renderListView(colorList) {
 
     card.addEventListener("click", () => {
       const gIdx = allColorsFlat.indexOf(item);
-      showDetailView(gIdx >= 0 ? gIdx : 0);
+      showDetailView(gIdx >= 0 ? gIdx : 0, true);
     });
 
     listView.appendChild(card);
@@ -168,15 +208,17 @@ function renderListView(colorList) {
 
 /**
  * カラーサンプル（詳細画面）の表示
- * ※マンセル値を削除し、RGBのみを表示
+ * @param {number} globalIdx - カラーインデックス
+ * @param {boolean} updateHistory - URL（ハッシュ）履歴を更新するかどうか
  */
-function showDetailView(globalIdx) {
+function showDetailView(globalIdx, updateHistory = true) {
   globalCurrentIndex = globalIdx;
   isDetailView = true;
 
   const colorData = allColorsFlat[globalCurrentIndex];
   if (!colorData) return;
 
+  // カテゴリハイライトの同期
   const catIdx = CATEGORY_LIST.findIndex(c => c.key === colorData.categoryKey);
   if (catIdx >= 0) {
     currentCategoryIndex = catIdx;
@@ -186,6 +228,18 @@ function showDetailView(globalIdx) {
     });
   }
 
+  // パーマリンク（ハッシュ）の設定
+  const colorHash = `#${encodeURIComponent(colorData.kanaName)}`;
+  if (updateHistory) {
+    history.pushState(null, "", colorHash);
+  }
+
+  // SEO用メタタグ & タイトルの動的書き換え
+  const pageTitle = `${colorData.kanaName}（${colorData.name}）の色見本・カラーサンプル | RGB: ${colorData.hex.toUpperCase()}`;
+  const pageDesc = `${colorData.kanaName}（${colorData.name}）のカラーサンプル・色見本ページです。16進数カラーコード（${colorData.hex.toUpperCase()}）や配色詳細を確認できます。`;
+  updateMetaTags(pageTitle, pageDesc);
+
+  // 画面切替
   document.getElementById("list-view").style.display = "none";
   const detailView = document.getElementById("detail-view");
   detailView.style.display = "block";
@@ -204,6 +258,28 @@ function showDetailView(globalIdx) {
   `;
 }
 
+/**
+ * `<title>` および SEO・OGPメタタグを動的に書き換える関数
+ */
+function updateMetaTags(titleText, descText) {
+  document.title = titleText;
+
+  // Meta Description
+  let metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", descText);
+
+  // OG Title & Description
+  let ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute("content", titleText);
+
+  let ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute("content", descText);
+
+  // OG URL (現在のハッシュ付きフルURL)
+  let ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute("content", window.location.href);
+}
+
 function navigateGlobalColor(step) {
   let newGIdx = globalCurrentIndex + step;
   if (newGIdx < 0) {
@@ -211,5 +287,5 @@ function navigateGlobalColor(step) {
   } else if (newGIdx >= allColorsFlat.length) {
     newGIdx = 0;
   }
-  showDetailView(newGIdx);
+  showDetailView(newGIdx, true);
 }
