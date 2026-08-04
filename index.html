@@ -3,20 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>カラーサンプル</title>
+
+    <!-- SEO対策：タイトルタグ（主要キーワードを前方に配置） -->
+    <title>カラーサンプル | JIS規格(Z 8102)・RGB・HEX・マンセル値対応 673色一覧</title>
+
+    <!-- SEO対策：メタディスクリプション（検索結果に表示される概要文） -->
+    <meta name="description" content="JIS規格 Z 8102:2001（物体色の色名）269色を含む全673色のカラーサンプルサイト。各色のRGB（16進数カラーコード）やマンセル値を網羅したシンプルで使いやすい色見本帳です。デザインやWEB制作の色検索に。">
+
+    <!-- SEO対策：メタキーワード -->
+    <meta name="keywords" content="カラーサンプル, 色見本, JIS Z 8102, 慣用色名, RGB, HEX, 16進数, マンセル値, 色コード">
+
     <!-- Faviconの設定 -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- OGP設定（SNSシェア時のカード表示最適化） -->
+    <meta property="og:title" content="カラーサンプル | JIS規格・RGB・マンセル値対応 673色一覧">
+    <meta property="og:description" content="JIS規格(Z 8102)269色を含む全673色のシンプル色見本帳。RGB・16進数カラーコード・マンセル値を掲載。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asuka-travel-guide.github.io/iroirosample/">
+    <meta property="og:image" content="https://asuka-travel-guide.github.io/iroirosample/ogp-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- スタイルシートの読み込み -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1 class="site-title">カラーサンプル</h1>
+        <!-- SEO補強用見出し（スタイルで視覚的に隠しつつ検索エンジンに伝達） -->
+        <h1 class="site-title">カラーサンプル - JIS規格(Z 8102)・RGB・マンセル値対応 673色一覧</h1>
 
         <div class="nav-container">
-            <!-- 一重矢印（<） -->
+            <!-- ヘッダー左：一重矢印（<）ボタン -->
             <button type="button" class="nav-arrow-btn" id="hdr-prev-btn" aria-label="前へ">&lt;</button>
             
+            <!-- カテゴリボタンエリア（文字はCSSでhidden化） -->
             <nav id="category-nav">
                 <button type="button" class="nav-btn active" data-category="赤系" style="background-color: #d7003a; color: #fff;"><span class="nav-btn-text">赤系</span></button>
                 <button type="button" class="nav-btn" data-category="橙系" style="background-color: #eb6100; color: #fff;"><span class="nav-btn-text">橙系</span></button>
@@ -29,16 +50,25 @@
                 <button type="button" class="nav-btn" data-category="白黒" style="background-color: #595857; color: #fff;"><span class="nav-btn-text">白黒</span></button>
             </nav>
 
-            <!-- 一重矢印（>） -->
+            <!-- ヘッダー右：一重矢印（>）ボタン -->
             <button type="button" class="nav-arrow-btn" id="hdr-next-btn" aria-label="次へ">&gt;</button>
         </div>
     </header>
 
     <main>
+        <!-- 一覧画面表示エリア -->
         <div id="list-view" class="grid-container"></div>
+        
+        <!-- カラーサンプル（詳細画面）表示エリア -->
         <div id="detail-view" style="display: none;"></div>
     </main>
 
+    <!-- SEO補強用フッター説明文 -->
+    <footer style="max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; font-size: 12px; color: #666666; line-height: 1.6;">
+        <p>当サイトは、JIS規格 Z 8102:2001（物体色の色名）で定義された269色の和名・洋名を含む、全673色を網羅したシンプルなWebカラーサンプル（色見本帳）です。各カラーサンプル・色見本ページでは、RGB値（16進数カラーコード）やマンセル値を一目で確認できます。Webデザイン、グラフィックデザイン、イラスト制作、配色検討の際にご活用ください。</p>
+    </footer>
+
+    <!-- スクリプトの読み込み -->
     <script src="script.js"></script>
 </body>
 </html>
