@@ -20,8 +20,6 @@ const DEFAULT_META = {
 let colorDataMap = {};
 let allColorsFlat = [];
 let currentCategoryIndex = 0;
-let globalCurrentIndex = 0;
-let isDetailView = false;
 
 // フリック操作用変数
 let touchStartX = 0;
@@ -29,13 +27,78 @@ let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
 
+const HIRAGANA_TO_ROMAJI = {
+  'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
+  'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
+  'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
+  'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
+  'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
+  'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
+  'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
+  'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
+  'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
+  'わ': 'wa', 'ゐ': 'wi', 'ゑ': 'we', 'を': 'wo', 'ん': 'n',
+  'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
+  'ざ': 'za', 'じ': 'ji', 'ず': 'zu', 'ぜ': 'ze', 'ぞ': 'zo',
+  'だ': 'da', 'ぢ': 'ji', 'づ': 'zu', 'で': 'de', 'ど': 'do',
+  'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
+  'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
+  'きゃ': 'kya', 'きゅ': 'kyu', 'きょ': 'kyo',
+  'しゃ': 'sha', 'しゅ': 'shu', 'しょ': 'sho',
+  'ちゃ': 'cha', 'ちゅ': 'chu', 'ちょ': 'cho',
+  'にゃ': 'nya', 'にゅ': 'nyu', 'にょ': 'nyo',
+  'ひゃ': 'hya', 'ひゅ': 'hyu', 'ひょ': 'hyo',
+  'みゃ': 'mya', 'みゅ': 'myu', 'みょ': 'myo',
+  'りゃ': 'rya', 'りゅ': 'ryu', 'りょ': 'ryo',
+  'ぎゃ': 'gya', 'ぎゅ': 'gyu', 'ぎょ': 'gyo',
+  'じゃ': 'ja', 'じゅ': 'ju', 'じょ': 'jo',
+  'びゃ': 'bya', 'びゅ': 'byu', 'びょ': 'byo',
+  'ぴゃ': 'pya', 'ぴゅ': 'pyu', 'ぴょ': 'pyo',
+  'ー': ''
+};
+
+function kanaToRomaji(text) {
+  let res = [];
+  let i = 0;
+  const n = text.length;
+  while (i < n) {
+    if (i + 1 < n && HIRAGANA_TO_ROMAJI[text.slice(i, i + 2)]) {
+      res.push(HIRAGANA_TO_ROMAJI[text.slice(i, i + 2)]);
+      i += 2;
+    } else if (text[i] === 'っ') {
+      if (i + 1 < n) {
+        let nextChar = text[i + 1];
+        let nextRomaji = '';
+        if (i + 2 < n && HIRAGANA_TO_ROMAJI[text.slice(i + 1, i + 3)]) {
+          nextRomaji = HIRAGANA_TO_ROMAJI[text.slice(i + 1, i + 3)];
+        } else if (HIRAGANA_TO_ROMAJI[nextChar]) {
+          nextRomaji = HIRAGANA_TO_ROMAJI[nextChar];
+        }
+        if (nextRomaji) {
+          res.push(nextRomaji[0]);
+        }
+      }
+      i += 1;
+    } else if (HIRAGANA_TO_ROMAJI[text[i]]) {
+      res.push(HIRAGANA_TO_ROMAJI[text[i]]);
+      i += 1;
+    } else {
+      res.push(text[i]);
+      i += 1;
+    }
+  }
+  return res.join('');
+}
+
+function isEnglish(text) {
+  if (!text) return false;
+  return /^[a-zA-Z0-9\s\-\.\'\(\)]+$/.test(text);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderMenu();
   initFlickEvents();
   loadCSVAndInit();
-
-  // ブラウザの「戻る」「進む」ボタン操作（URLパラメータ変更）に対応
-  window.addEventListener("popstate", handleUrlChange);
 });
 
 async function loadCSVAndInit() {
@@ -45,11 +108,8 @@ async function loadCSVAndInit() {
       throw new Error(`CSVの読み込みに失敗しました: ${response.status}`);
     }
     const csvText = await response.text();
-    
     parseCSV(csvText);
-
-    // 初回ロード時にURLパラメータ（?color=◯◯）をチェック
-    handleUrlChange();
+    switchCategoryByIndex(0);
   } catch (error) {
     console.error("CSV読み込みエラー:", error);
   }
@@ -59,6 +119,7 @@ function parseCSV(text) {
   const lines = text.trim().split(/\r\n|\n/);
   colorDataMap = {};
   allColorsFlat = [];
+  const usedFilenames = new Set();
 
   lines.forEach(line => {
     if (!line.trim()) return;
@@ -71,6 +132,21 @@ function parseCSV(text) {
     const rawHex = cols[4] || "FFFFFF";
     const hex = rawHex.startsWith('#') ? rawHex : `#${rawHex}`;
 
+    let base = '';
+    if (isEnglish(name)) {
+      base = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+    } else {
+      base = kanaToRomaji(kanaName).toLowerCase().replace(/[^a-z0-9\-]/g, '');
+    }
+
+    let filename = `${base}.html`;
+    let counter = 1;
+    while (usedFilenames.has(filename)) {
+      filename = `${base}-${counter}.html`;
+      counter += 1;
+    }
+    usedFilenames.add(filename);
+
     const textColor = getContrastTextColor(hex);
 
     const item = {
@@ -78,7 +154,8 @@ function parseCSV(text) {
       kanaName,
       name,
       hex,
-      textColor
+      textColor,
+      filename
     };
 
     if (!colorDataMap[catKey]) {
@@ -108,46 +185,19 @@ function initHeaderMenu() {
 
   navButtons.forEach((button, idx) => {
     button.addEventListener("click", () => {
-      // 一覧に戻る際はURLパラメータを消去
-      history.pushState(null, "", window.location.pathname);
       switchCategoryByIndex(idx);
     });
   });
 
   document.getElementById("hdr-prev-btn").addEventListener("click", () => {
-    handlePrevNavigation();
+    navigateCategory(-1);
   });
 
   document.getElementById("hdr-next-btn").addEventListener("click", () => {
-    handleNextNavigation();
+    navigateCategory(1);
   });
 }
 
-/**
- * 前へ移動する共通処理
- */
-function handlePrevNavigation() {
-  if (isDetailView) {
-    navigateGlobalColor(-1);
-  } else {
-    navigateCategory(-1);
-  }
-}
-
-/**
- * 次へ移動する共通処理
- */
-function handleNextNavigation() {
-  if (isDetailView) {
-    navigateGlobalColor(1);
-  } else {
-    navigateCategory(1);
-  }
-}
-
-/**
- * フリック（スワイプ）操作の初期化
- */
 function initFlickEvents() {
   const targetArea = document.body;
 
@@ -163,57 +213,22 @@ function initFlickEvents() {
   }, { passive: true });
 }
 
-/**
- * スワイプの判定処理
- */
 function handleSwipeGesture() {
   const deltaX = touchEndX - touchStartX;
   const deltaY = touchEndY - touchStartY;
+  const minSwipeDistance = 50;
 
-  const minSwipeDistance = 50; // スワイプ検知の最小距離（px）
-
-  // 縦スクロールと誤判定しないよう、横移動量が十分大きく縦移動より大きい場合のみ検知
   if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY)) {
     if (deltaX < 0) {
-      // 左スワイプ（指を左へ＝次へ）
-      handleNextNavigation();
+      navigateCategory(1);
     } else {
-      // 右スワイプ（指を右へ＝前へ）
-      handlePrevNavigation();
+      navigateCategory(-1);
     }
   }
-}
-
-/**
- * URLパラメータ（例: ?color=肉桂色）を判定して画面を切り替える
- */
-function handleUrlChange() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const colorParam = urlParams.get('color');
-
-  if (colorParam) {
-    const decodedParam = decodeURIComponent(colorParam).trim();
-    // ひらがな・漢字名で一致する色を検索
-    const foundIdx = allColorsFlat.findIndex(
-      item => item.kanaName === decodedParam || item.name === decodedParam
-    );
-
-    if (foundIdx >= 0) {
-      showDetailView(foundIdx, false); // URL更新を行わずに表示
-      return;
-    }
-  }
-
-  // パラメータがない、または見つからない場合はデフォルトカテゴリ（0）を表示
-  switchCategoryByIndex(currentCategoryIndex || 0);
 }
 
 function switchCategoryByIndex(catIndex) {
   currentCategoryIndex = catIndex;
-  isDetailView = false;
-
-  // デフォルトのメタ・タイトルに戻す
-  updateMetaTags(DEFAULT_META.title, DEFAULT_META.description);
 
   const navButtons = document.querySelectorAll("#category-nav button");
   navButtons.forEach((btn, idx) => {
@@ -224,7 +239,6 @@ function switchCategoryByIndex(catIndex) {
   const colorList = colorDataMap[catKey] || [];
 
   document.getElementById("list-view").style.display = "grid";
-  document.getElementById("detail-view").style.display = "none";
 
   renderListView(colorList);
 }
@@ -236,8 +250,6 @@ function navigateCategory(step) {
   } else if (newCatIdx >= CATEGORY_LIST.length) {
     newCatIdx = 0;
   }
-  
-  history.pushState(null, "", window.location.pathname);
   switchCategoryByIndex(newCatIdx);
 }
 
@@ -246,13 +258,12 @@ function renderListView(colorList) {
   listView.innerHTML = "";
 
   colorList.forEach((item) => {
-    // 検索エンジンが各色リンクをクロールできるよう <a> タグ構造に変更
     const card = document.createElement("a");
     card.className = "color-card";
     card.style.backgroundColor = item.hex;
     card.style.color = item.textColor;
-    card.style.textDecoration = "none"; // リンクの下線を削除
-    card.href = `?color=${encodeURIComponent(item.kanaName)}`;
+    card.style.textDecoration = "none";
+    card.href = `colors/${item.filename}`;
 
     card.innerHTML = `
       <div class="color-card-content">
@@ -261,96 +272,6 @@ function renderListView(colorList) {
       </div>
     `;
 
-    card.addEventListener("click", (e) => {
-      e.preventDefault(); // 通常のページ遷移を防止してSPA風に高速切替
-      const gIdx = allColorsFlat.indexOf(item);
-      showDetailView(gIdx >= 0 ? gIdx : 0, true);
-    });
-
     listView.appendChild(card);
   });
-}
-
-/**
- * カラーサンプル（詳細画面）の表示
- * @param {number} globalIdx - カラーインデックス
- * @param {boolean} updateHistory - URL（パラメータ）履歴を更新するかどうか
- */
-function showDetailView(globalIdx, updateHistory = true) {
-  globalCurrentIndex = globalIdx;
-  isDetailView = true;
-
-  const colorData = allColorsFlat[globalCurrentIndex];
-  if (!colorData) return;
-
-  // カテゴリハイライトの同期
-  const catIdx = CATEGORY_LIST.findIndex(c => c.key === colorData.categoryKey);
-  if (catIdx >= 0) {
-    currentCategoryIndex = catIdx;
-    const navButtons = document.querySelectorAll("#category-nav button");
-    navButtons.forEach((btn, idx) => {
-      btn.classList.toggle("active", idx === catIdx);
-    });
-  }
-
-  // URLパラメータの設定
-  const newUrl = `?color=${encodeURIComponent(colorData.kanaName)}`;
-  if (updateHistory) {
-    history.pushState(null, "", newUrl);
-  }
-
-  // SEO用メタタグ & タイトルの動的書き換え
-  const pageTitle = `${colorData.kanaName}（${colorData.name}）の色見本・カラーサンプル | RGB: ${colorData.hex.toUpperCase()}`;
-  const pageDesc = `${colorData.kanaName}（${colorData.name}）のカラーサンプル・色見本ページです。16進数カラーコード（${colorData.hex.toUpperCase()}）や配色詳細を確認できます。`;
-  updateMetaTags(pageTitle, pageDesc);
-
-  // 画面切替
-  document.getElementById("list-view").style.display = "none";
-  const detailView = document.getElementById("detail-view");
-  detailView.style.display = "block";
-
-  detailView.style.backgroundColor = colorData.hex;
-  detailView.style.color = colorData.textColor;
-
-  detailView.innerHTML = `
-    <div class="detail-top-left-info">
-      <div class="info-kana">${colorData.kanaName}</div>
-      <div class="info-kanji">${colorData.name}</div>
-      <div class="info-rgb-group">
-        <span class="info-rgb-label">RGB：</span><span class="info-hex">${colorData.hex.toUpperCase()}</span>
-      </div>
-    </div>
-  `;
-}
-
-/**
- * `<title>` および SEO・OGPメタタグを動的に書き換える関数
- */
-function updateMetaTags(titleText, descText) {
-  document.title = titleText;
-
-  // Meta Description
-  let metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute("content", descText);
-
-  // OG Title & Description
-  let ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.setAttribute("content", titleText);
-
-  let ogDesc = document.querySelector('meta[property="og:description"]');
-  if (ogDesc) ogDesc.setAttribute("content", descText);
-
-  // OG URL
-  let ogUrl = document.querySelector('meta[property="og:url"]');
-  if (ogUrl) ogUrl.setAttribute("content", window.location.href);
-}
-
-function navigateGlobalColor(step) {
-  let newGIdx = globalCurrentIndex + step;
-  if (newGIdx < 0) {
-    newGIdx = allColorsFlat.length - 1;
-  } else if (newGIdx >= allColorsFlat.length) {
-    newGIdx = 0;
-  }
-  showDetailView(newGIdx, true);
 }
