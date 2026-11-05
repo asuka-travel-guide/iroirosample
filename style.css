@@ -1,213 +1,123 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+:root{--ink:#1d2b2b;--hh:64px;--sh:0 6px 14px rgba(0,0,0,.28);--gx:14px;--tx:10px}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--hh) + 8px);scrollbar-gutter:stable}
+body{margin:0;padding-top:var(--hh);color:var(--ink);background:#f7f8fa;line-height:1.75;font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic Medium","Yu Gothic",Meiryo,sans-serif}
+a{color:inherit;text-decoration:none;font-weight:bold}
+:focus-visible{outline:3px solid #06c;outline-offset:2px}
+[hidden]{display:none!important}
+.lt{--t:#f5f5f5}.dk{--t:#1d2b2b}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-body {
-    font-family: "Montserrat", "Avenir Next", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", sans-serif;
-    background-color: #f8f9fa;
-}
+/* header */
+.hd{position:fixed;inset:0 0 auto 0;z-index:10;height:var(--hh);background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.07)}
+.tabs{display:flex;gap:6px;height:100%;padding:12px var(--gx);max-width:1400px;margin:0 auto}
+.tabs a{display:flex;align-items:center;justify-content:center;min-width:0;border-radius:6px}
+.tabs .ct{flex:1;background:var(--c);color:var(--t);font-size:clamp(11px,3vw,14px);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.tabs .ct:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.22)}
+.tabs .ct[aria-current]{transform:translateY(-4px);box-shadow:var(--sh)}
+.tabs .arw{flex:0 0 40px;color:#666;background:#fff;border:1px solid #b9bfc9;font-size:22px;font-weight:normal;line-height:1}
+.tabs .arw:hover{background:#f1f3f6}
 
-/* サイトタイトルの視視的非表示（SEO用テキストとして保持） */
-.site-title {
-    display: none !important;
-}
+/* top */
+.wrap{max-width:1400px;margin:0 auto;padding:24px var(--gx) 12px}
+.top,.intro,.none{padding-inline:var(--tx)}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;margin:0 0 14px}
+.is-cat .top{display:none}
+.wrap h1{margin:0;font-size:26px;line-height:1.3}
+.about{margin:28px 0 8px;max-width:50em}
+.about h2{font-size:17px;margin:0 0 .5em}
+.about p{margin:.6em 0;color:#3a4a4a}
+#near h2{margin:8px 0 12px}
+.intro p{margin:.5em 0;max-width:46em}
+.intro ul{padding:0;margin:1.2em 0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
 
-/* ------------------------------------------
-   ヘッダーメニュー
------------------------------------------- */
-header {
-    background-color: #ffffff;
-    border-bottom: none;
-    padding: 10px 16px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+.search{margin:0;flex:0 1 26em;min-width:min(100%,16em);display:flex;flex-direction:column;gap:4px}
+.hint{font-size:12px;color:#7a8490;line-height:1.5}
+html:not(.js) .search{display:none}
+.search input{width:100%;font:inherit;padding:9px 14px;border:1px solid #d3d7de;border-radius:6px;background:#fff;outline:none}
+.search input:focus,.search input:focus-visible{outline:none;border-color:#9aa4b2;box-shadow:0 0 0 3px rgba(120,135,155,.15)}
+.cat h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.is-search .cat h2{position:static;width:auto;height:auto;overflow:visible;clip:auto;margin:8px 0 10px}
+.is-search .cat h2,#near h2{font-size:14px;font-weight:500;color:#6a7480;padding-inline:var(--tx)}
+.cat h2 span{font-weight:normal;margin-left:.6em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;list-style:none;margin:0 0 26px;padding:0}
+.grid li{background:var(--c);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.15);container-type:inline-size;display:flex;flex-direction:column;min-height:58px}
+.grid li:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.grid a.cl{display:block;flex:1;padding:8px 12px 2px;color:var(--t);font-size:14px;line-height:1.55;border-radius:8px 8px 0 0}
+.grid .hx{display:block;width:100%;margin:0;padding:2px 12px 8px;border:0;border-radius:0 0 8px 8px;background:none;color:var(--t);font-family:inherit;font-size:14px;font-weight:700;line-height:1.55;text-align:left;cursor:copy}
+.grid .hx:hover{background:rgba(127,127,127,.2)}
+@media (hover:hover){.grid .hx:hover::after{content:"コピー";margin-left:.7em;font-size:11px;font-weight:400;opacity:.8}}
+.grid .nm{display:block;white-space:nowrap;overflow:hidden;font-size:14px;font-size:max(10px,min(14px,calc((100cqw - 24px) / var(--n))))}
+.none{color:#666}
 
-/* コンテナ全体 */
-.nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 2px;
-}
+.ft{margin:0;padding:18px 16px 28px;text-align:center;font-size:13px}
+.ft a{font-weight:normal}.ft a:hover{color:#f00}
 
-/* 【修正】左右矢印ボタン（枠線を濃くして認識しやすく・文字色をマイルドなグレーに） */
-.nav-arrow-btn {
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0; /* 枠線を少し濃くしてボタン感をしっかり表現 */
-    color: #777777;            /* 矢印の黒の主張を抑えた上品なグレー */
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0 14px;
-    height: 38px;
-    border-radius: 4px !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: all 0.2s ease;
-}
+/* sample */
+body.sample{background:var(--c);color:var(--t);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Noto Sans CJK JP","Noto Sans JP","BIZ UDPGothic",Meiryo,sans-serif;font-weight:700;
+  height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:none}
+body.sample.lt{--t:#fff;--m:rgba(255,255,255,.8)}
+body.sample.dk{--t:#1d2b2b;--m:rgba(29,43,43,.72)}
+body.sample a:focus-visible{outline-color:currentColor}
+.stage{flex:1;min-height:0;overflow:hidden;padding:40px}
+body.sample .ft{flex:none;padding:12px 16px 16px}
+.stage h1{margin:0;font-size:52px;font-weight:900;-webkit-text-stroke:.035em currentColor;letter-spacing:.06em;line-height:1.15;max-width:14em;overflow-wrap:break-word;text-wrap:balance}
+.stage .rd{margin:8px 0 0;font-size:14px;font-weight:900;-webkit-text-stroke:.02em currentColor;letter-spacing:.18em;color:var(--m)}
+.spec{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 24px;width:fit-content;font:700 15px/1.5 ui-sans-serif,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.spec dt{color:var(--m);font-size:12px;font-weight:900;letter-spacing:.24em;padding-top:2px}
+.spec dd{margin:0;font-weight:900;letter-spacing:.04em;white-space:nowrap}
+body.sample .ft a:hover{color:inherit;text-decoration:underline}
 
-.nav-arrow-btn:hover {
-    background-color: #f8f9fa;
-    border-color: #888888;     /* ホバー時は枠線をもう少し強調 */
-    color: #444444;            /* ホバー時に少し矢印を濃く */
+@media (max-width:560px){
+  :root{--gx:8px;--tx:8px}
+  .wrap{padding:18px var(--gx) 8px}
+  .tabs{gap:3px}.tabs .arw{display:none}
+  .grid{gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stage{padding:22px}.stage h1{font-size:30px}
 }
+@media (prefers-reduced-motion:no-preference){.grid li,.tabs a,.catnav a,.btn{transition:transform .15s,box-shadow .15s}}
 
-/* カテゴリボタンのグループ */
-#category-nav {
-    display: flex;
-    flex: 1;
-    gap: 2px;
-}
+/* ---- トップ / プライバシーページ (センター・シンプル) ---- */
+.lead{margin:.2em 0 .8em;color:#3a4a4a;max-width:44em}
+.tips{color:#5b6670;font-size:14px}
+.intro .catnav ul{list-style:none;margin:22px 0 18px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.intro .catnav li a{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:#fff;color:var(--ink);border:1px solid #e1e4ea;border-radius:999px;font-weight:700;font-size:14px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.intro .catnav li a:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.catnav .sw{width:11px;height:11px;border-radius:50%;background:var(--c)}
+.catnav .cc{font-weight:400;color:#7a8490;font-size:12px}
+.catnav .strip{display:none}
+.about h2,.guide h2,.faq h2{font-size:17px;margin:0 0 .6em}
+.guide,.faq{margin:26px 0 8px;max-width:50em}
+.guide dl,.faq dl{margin:0}
+.guide dt,.faq dt{font-weight:700;margin-top:.9em}
+.guide dd,.faq dd{margin:.15em 0 0;color:#3a4a4a}
 
-/* メニューボタン（背景白・立体感のある細枠） */
-.nav-btn {
-    flex: 1;
-    height: 38px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.85;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
+.v3 .top{flex-direction:column;align-items:center;text-align:center;gap:14px;margin:18px 0 6px}
+.v3 h1{font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:36px;font-weight:800;letter-spacing:.08em}
+.v3 .search{flex:none;width:min(100%,560px);align-items:stretch}
+.v3 .search input{padding:12px 18px;border-radius:999px;font-size:16px}
+.v3 .hint{text-align:center}
+.v3 .intro{max-width:760px;margin:0 auto}
+.v3 .about,.v3 .guide,.v3 .faq{border-top:1px solid #e3e6ec;padding-top:22px;margin-top:22px}
+@media (max-width:560px){.v3 h1{font-size:28px}}
 
-.nav-btn-text {
-    display: none !important;
-}
+.ftl{margin:0;padding:22px 16px 0;text-align:center;font-size:13px}
+.ftl a{font-weight:400;color:#4a5560;text-decoration:none}
+.ftl a:hover{color:#f00}.ftl span{margin:0 .7em;color:#b3bac4}
+.ftl+.ft{padding-top:8px}
 
-.nav-btn:hover {
-    opacity: 1;
-}
+/* プライバシーポリシー・お問い合わせ */
+.doc{max-width:760px;margin:0 auto;padding:0 var(--tx)}
+.doc h2{font-size:20px;margin:30px 0 10px;padding-top:22px;border-top:1px solid #e3e6ec}
+.doc h3{font-size:16px;margin:22px 0 4px}
+.doc p,.doc li{color:#3a4a4a;margin:.5em 0}
+.doc ul{padding-left:1.3em;margin:.5em 0}
+.doc a:not(.btn){font-weight:400;color:#1a56a8;text-decoration:none;overflow-wrap:anywhere}
+.btn{display:inline-block;padding:12px 30px;border-radius:999px;background:var(--ink);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.btn:hover{transform:translateY(-3px);box-shadow:var(--sh)}
 
-/* 選択中のメニュー */
-.nav-btn.active {
-    opacity: 1;
-    outline: none !important;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
-}
-
-/* ------------------------------------------
-   一覧画面（左揃え・文字拡大・高さ1.2倍・間隔2/3）
------------------------------------------- */
-#list-view h2,
-#list-view .category-title {
-    display: none !important;
-}
-
-/* カード間隔（8px） */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 8px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* カードデザイン */
-.color-card {
-    border-radius: 4px !important;
-    height: 53px; /* 44pxの約1.2倍 */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* 左揃え */
-    padding-left: 14px; /* 適度なインデント */
-    cursor: pointer;
-    
-    font-family: "Montserrat", "Avenir Next", "SF Pro Display", "Hiragino Sans", sans-serif;
-    
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-    transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.color-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
-}
-
-.color-card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2px;
-    line-height: 1.2;
-}
-
-.color-card .color-name {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-}
-
-.color-card .color-code {
-    font-size: 11px;
-    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
-    font-weight: 600;
-    opacity: 0.9;
-    letter-spacing: 0.5px;
-}
-
-/* ------------------------------------------
-   カラーサンプル画面（詳細）
------------------------------------------- */
-#detail-view {
-    min-height: calc(100vh - 58px);
-    width: 100%;
-    position: relative;
-    padding: 30px;
-    box-sizing: border-box;
-    transition: background-color 0.25s ease;
-}
-
-.detail-top-left-info {
-    position: absolute;
-    top: 36px;
-    left: 40px;
-    text-align: left;
-    background: transparent;
-    padding: 0;
-    
-    font-family: "Montserrat", "Avenir Next", "Hiragino Sans", "ヒラギノ角ゴ ProN W6", sans-serif;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-
-.info-kana {
-    font-size: 22px;
-    line-height: 1.2;
-    margin-bottom: 2px;
-    opacity: 0.95;
-}
-
-.info-kanji {
-    font-size: 38px;
-    line-height: 1.2;
-    margin-bottom: 16px;
-}
-
-.info-rgb-group {
-    font-size: 22px;
-    line-height: 1.4;
-}
-
-.info-rgb-label {
-    font-weight: 900;
-}
-
-.info-hex {
-    font-size: 24px;
-    font-family: "SFMono-Regular", Consolas, monospace;
-}
+/* コードのコピー */
+.spec .hx{margin:0;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:copy}
+@media (hover:hover){.spec .hx:hover::after{content:"コピー";margin-left:.8em;font-size:11px;font-weight:400;opacity:.8}}
+.toast{position:fixed;left:50%;bottom:28px;z-index:50;transform:translate(-50%,12px);padding:8px 18px;border-radius:999px;background:rgba(29,43,43,.92);color:#fff;font-size:14px;font-weight:700;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
